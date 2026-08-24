@@ -179,18 +179,20 @@ Place a familiar inline-SVG copy control as an overlay at the bottom right of th
 
 ## 7. Supporting components
 
-- Status badges show real state only: `Active`, `Failed`, `Draft`, `3 errors`. Document type, nouns, dates, counts, and ordinary facts are labels or text, not status badges. Compact file/skill reference tokens are a separate identity treatment defined below.
+- Status badges show real state only: `Active`, `Failed`, `Draft`, `3 errors`. Document type, nouns, dates, counts, and ordinary facts are labels or text, not status badges. Compact reference tokens are a separate identity treatment defined below.
 - Bubbles group selected controls or compact functional state. Counts and chart values stay plain unless a shared container materially improves comparison. Calls to action become bubbles only when they are true primary actions.
 - Monospace is for code, commands, identifiers, filenames, routes, and values.
 - Prefer inline SVG icons for document type, file, language, search, copy, warning, success, database, server, disclosure, and external link. Use `currentColor`, a shared viewBox/stroke system, and consistent alignment. Familiar action icons may stand alone with accessible names; pair unfamiliar icons with text.
 - Put a small document-type icon beside compact artifact labels such as report, guide, plan, research, or reference.
 - Metadata appears once as one muted line and includes only facts the reader needs. Omit implementation labels such as `Self-contained`, `Dark mode`, and `No dependencies` unless they materially affect use. Use dot separators only when two or more useful items remain; do not repeat metadata in header, sidebar, and footer.
 
-### File and skill references
+### Reference tokens
 
-File references are quiet evidence: small colored type icon, neutral filename, optional line span. Show shortest useful filename; reveal full path only when needed.
+References are quiet evidence with one shared visual family and type-specific identity. A file reference uses a small file-type icon, a neutral filename, and an optional line span. A database table, Prisma model, schema field/column, enum, callable, route, API, package, config key, or error code uses a compact type glyph plus its neutral identifier. A skill reference uses its leading `$`. Show the shortest useful name and reveal a full path only when needed.
 
-Use `li.ref` as the semantic hook for source and evidence rows. In a final source list, keep each row unboxed and use ordinary ordered-list markers. Reserve compact bubbles for the file/skill identity tokens defined below.
+Use reference-token styling whenever prose or a table asks the reader to locate, recognize, or return to a concrete named unit. For example, `schema.prisma` is a file token, `event_registrations` is a database-table token, `EventRegistration` is a model token, `eventId` is a schema-field token, and `findUnique` is a callable-symbol token. Plain syntax fragments, data types, values, commands, expressions, query fragments, and incidental identifiers remain unboxed monospace. When the same text appears in both roles, style only the referential occurrence. Audit every inline `<code>` or monospace fragment with this test: “Is the reader being pointed to a concrete unit, or being shown language syntax/value?” Do not turn every monospace word into a token.
+
+Use `li.ref` as the semantic hook for source and evidence rows. In a final source list, keep each row unboxed and use ordinary ordered-list markers. Reserve compact bubbles for the reference identity tokens defined below.
 
 | Type | Icon/accent |
 | --- | --- |
@@ -200,15 +202,23 @@ Use `li.ref` as the semantic hook for source and evidence rows. In a final sourc
 | CSS | `#` |
 | JSON | `{ }` |
 | Prisma | `◇`, `#55E3F9` or `#B471FA` |
-| SQL | `▦` |
+| SQL or database artifact | inline SVG database cylinder/stack, `#55E3F9` |
+| Callable or method | `ƒ` or compact function SVG, `#55E3F9` |
+| Model or entity | compact node/data-model SVG, `#B471FA` |
+| Schema field or database column | `↳` or compact field SVG, `#F6C107` |
+| Enum or schema attribute | `E` or `◇`, `#B471FA` |
+| Config, environment key, or package | `$` or compact package/config SVG, `#39D970` |
+| Error code | `!`, `#FFEA00` |
 
-Only icon receives file-type color. Filename stays `#d4d4d8` or `#a1a1aa`; use `11–12px` mono text, `6px` radius, roughly `22px` height, and low/no border.
+Only the icon receives type color. Reference text stays `#d4d4d8` or `#a1a1aa`; use `11–12px` mono text, `6px` radius, roughly `22–24px` height, and low/no border. Use a database cylinder rather than a generic grid or document glyph for SQL files, stored procedures, migrations, and other database-owned artifacts.
 
-File and callable-skill references may use individual compact badges when the bubble makes the referenced unit easier to recognize. Use an opaque `#141414` background, `6px` radius, about `24px` height, and tight `2–4px 8px` padding; never box the surrounding group. A file badge uses its small type icon; a skill badge uses the leading `$` as its only icon. Color only the icon or `$`; keep the filename or skill name neutral. Plain commands inside prose remain unboxed monospace.
+File, symbol, and skill references may use individual compact tokens when the shape makes the referenced unit easier to recognize. Use an opaque surface, `6px` radius, about `24px` height, and tight `2–4px 8px` padding; never box the surrounding group. On the canvas, `#141414` is sufficient. Inside a `#111111` card or `#0d0d0d` disclosure, step the token up to roughly `#202020–#242424`; add a quiet `#343434` border only when the edge still disappears. Never reuse a token surface that is visually indistinguishable from its immediate parent. Let long tokens wrap or break with `max-width: 100%` and `overflow-wrap: anywhere` rather than widening the page.
 
 ### References used
 
 Use an `<ol>` with visible `1.`, `2.`, `3.` markers and mark every source row `li.ref`. Keep rows and the outer wrapper visually unboxed. Give outside markers `22–28px` inline-start space, allow long URLs to wrap with `overflow-wrap: anywhere`, and inspect the longest citation on a narrow viewport so neither marker nor text looks clipped. Keep the heading small (`16–18px`) so it reads as supporting material, not another primary section.
+
+The bibliography is the reference-token exception. Render each complete source entry as citation text; do not place file, route, model, callable, or other compact reference tokens inside `li.ref`. When a local citation needs a filename or repository path for identification, keep it inline and unboxed as part of the citation rather than giving it the normal reference-token surface. A source outside the repository is an ordinary inline link with a small external-link SVG. External links open in a new tab with `rel="noopener noreferrer"`.
 
 Format citations in Harvard style: `Author or organisation (Year, or n.d.) Title. Available at: URL (Accessed: D Month YYYY).` For local or unpublished guidance, replace the URL with a bracketed source description such as `[local agent guidance]`. Never invent an author or publication date; use the responsible organisation when known and `n.d.` when no reliable date is available.
 
@@ -238,7 +248,7 @@ Before publishing, verify:
 3. Representation fits information.
 4. All CSS is in one `<style>`; all optional JS in one classic `<script>`; no dependencies.
 5. Tabs, disclosures, copy buttons, links, keyboard focus, and small-screen layout work.
-6. Text and chart contrast remain readable; color has non-color cue.
+6. Text, chart, code-token, and nested reference-token contrast remain readable; color has a non-color cue.
 7. File stays below `512 KB`.
 8. Long document has quiet footer with date and exact provenance pattern: `Generated by <model> through <wrapper> Codex harness.` Omit skill name.
 9. Every colored element passes semantic audit: neutral facts remain white/gray; semantic and categorical color roles do not leak.
