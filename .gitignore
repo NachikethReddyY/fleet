@@ -1,3 +1,4 @@
 .agents/
 *.html
+!skills/interface-design/assets/DESIGN.html
 .DS_Store

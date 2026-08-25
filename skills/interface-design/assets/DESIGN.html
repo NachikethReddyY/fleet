@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="[project language]">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>[Product] Design System</title>
+  <style>
+    /*
+      AGENT: This scaffold contains no visual theme.
+
+      Build this document from the accepted project system:
+
+      1. Read DESIGN.md and the implementation sources it names.
+      2. Declare the project's actual tokens. Preserve production token names
+         when possible; do not substitute a generic palette or scale.
+      3. Style this reference with the same canvas, typography, spacing,
+         accents, shapes, and interaction language as the product.
+      4. Add only layouts and components the project uses.
+      5. Include responsive behavior, focus-visible states, supported themes,
+         and reduced-motion behavior where applicable.
+      6. Remove this comment only after every rendered decision is traceable to
+         DESIGN.md or project evidence.
+
+      Suggested CSS organization:
+
+      - project tokens and theme modes
+      - document canvas and navigation
+      - reusable specimen layout
+      - color and accent specimens
+      - typography specimens
+      - spacing, layout, shape, depth, and motion specimens
+      - component and state specimens
+      - icon and media specimens
+      - interaction and feedback specimens
+      - platform, input, responsive, and accessibility behavior
+    */
+  </style>
+</head>
+<body>
+  <!--
+    AGENT: Replace bracketed content with project-specific content. The
+    document should demonstrate the product, not describe an imagined example.
+    Keep names, values, roles, and source references synchronized with DESIGN.md.
+  -->
+
+  <header class="system-header">
+    <!-- AGENT: Use the project's actual name, summary, status, and visual voice. -->
+    <p class="system-kicker">Design system · [status]</p>
+    <h1>[Product] Design System</h1>
+    <p class="system-summary">[What this system governs and for whom]</p>
+    <dl class="system-meta">
+      <div><dt>Updated</dt><dd>[date]</dd></div>
+      <div><dt>Applies to</dt><dd>[packages, applications, or surfaces]</dd></div>
+      <div><dt>Sources</dt><dd>[token, style, and component paths]</dd></div>
+    </dl>
+  </header>
+
+  <nav aria-label="Design system sections">
+    <!-- AGENT: Keep links only for populated sections. -->
+    <ul>
+      <li><a href="#direction">Direction</a></li>
+      <li><a href="#color">Color</a></li>
+      <li><a href="#typography">Typography</a></li>
+      <li><a href="#layout">Layout</a></li>
+      <li><a href="#shape-motion">Shape and motion</a></li>
+      <li><a href="#components">Components</a></li>
+      <li><a href="#interaction">Interaction</a></li>
+      <li><a href="#content-assets">Content and assets</a></li>
+      <li><a href="#accessibility">Accessibility</a></li>
+      <li><a href="#decisions">Decisions</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="direction">
+      <h2>Product direction</h2>
+      <!--
+        AGENT: Render the accepted primary user, core job, context, personality,
+        interface voice, exclusions, trust and agency rules, and design
+        principles. Also show supported platform, viewport, viewing-distance,
+        session, input, and interruption contexts. Use representative project
+        language rather than generic marketing copy.
+      -->
+      <div class="direction-specimens" data-slot="product-direction"></div>
+      <div class="context-specimens" data-slot="supported-contexts"></div>
+    </section>
+
+    <section id="color">
+      <h2>Color</h2>
+
+      <section aria-labelledby="palette-heading">
+        <h3 id="palette-heading">Complete palette</h3>
+        <!--
+          AGENT: Render every accepted color token. Each specimen must show its
+          exact name, value, group, role, allowed uses, supported pairings,
+          state relationship, and implementation source when useful.
+
+          State the working color space, production notation, supported gamut,
+          and themes. Show complete shade scales rather than isolated swatches.
+          Group tokens using the project's real model: neutral, brand, accent,
+          semantic, visualization, subsystem, theme, or another accepted model.
+          Do not add groups the project does not use.
+        -->
+        <div class="color-specimens" data-slot="all-color-tokens"></div>
+      </section>
+
+      <section aria-labelledby="accents-heading">
+        <h3 id="accents-heading">Accent ownership</h3>
+        <!--
+          AGENT: Add one complete specimen per accent family. Show which feature,
+          navigation area, subsystem, tenant, data category, state, or component
+          owns it. Render every applicable default, hover, active, selected,
+          subtle-surface, border, focus, and foreground variant. State where the
+          accent must not be used.
+        -->
+        <div class="accent-specimens" data-slot="accent-families"></div>
+      </section>
+
+      <section aria-labelledby="pairings-heading">
+        <h3 id="pairings-heading">Surface and foreground pairings</h3>
+        <!--
+          AGENT: Demonstrate text, icons, borders, controls, semantic meaning,
+          and non-color cues on every surface where they occur. Include every
+          supported theme or mode and record verified contrast constraints.
+        -->
+        <div class="pairing-specimens" data-slot="supported-pairings"></div>
+      </section>
+    </section>
+
+    <section id="typography">
+      <h2>Typography</h2>
+      <!--
+        AGENT: Render actual font files or stacks and every accepted text role
+        from smallest to largest. Each row must appear at its real size and show
+        token, family, size, line height, weight, tracking, use, measure, and
+        responsive behavior. Use representative project content.
+      -->
+      <div class="font-specimens" data-slot="font-families"></div>
+      <div class="type-scale" data-slot="complete-type-scale"></div>
+      <div class="text-behavior" data-slot="measure-alignment-and-links"></div>
+    </section>
+
+    <section id="layout">
+      <h2>Spacing, sizing, and layout</h2>
+      <!--
+        AGENT: Visualize every spacing and sizing token at scale. Demonstrate
+        content widths, grids, fixed/constrained/fluid regions, density,
+        breakpoints, grouping through proximity, and representative narrow and
+        wide layouts. Do not invent a grid when the product does not use one.
+      -->
+      <div class="spacing-specimens" data-slot="spacing-and-sizing"></div>
+      <div class="layout-specimens" data-slot="layout-and-density"></div>
+    </section>
+
+    <section id="shape-motion">
+      <h2>Shape, depth, and motion</h2>
+      <!--
+        AGENT: State the project's light direction or flat-depth model. Render
+        accepted borders, radii, shadow layers, elevation levels, overlaps,
+        owned surfaces, and stacking relationships. Also render durations,
+        easing, transitions, and reduced-motion alternatives. Show permitted
+        uses and exclusions rather than isolated decorative samples.
+      -->
+      <div class="shape-specimens" data-slot="shape-and-depth"></div>
+      <div class="motion-specimens" data-slot="motion"></div>
+    </section>
+
+    <section id="components">
+      <h2>Components and states</h2>
+      <!--
+        AGENT: Render only real recurring components. For each, show production
+        anatomy, representative content, token use, variants, sizes, and every
+        applicable state: default, hover, focus-visible, active, selected,
+        loading, empty, error, success, disabled, and read-only.
+
+        Make specimens interactive when interaction is necessary to understand
+        the component. For a recomposed familiar pattern, demonstrate the
+        preserved semantic and interaction contract. Show applicable first-use,
+        no-results, unavailable, and failure states with the controls and next
+        steps each state permits. Do not create fictional components to fill
+        this section.
+      -->
+      <div class="component-specimens" data-slot="components-and-states"></div>
+    </section>
+
+    <section id="interaction">
+      <h2>Interaction and feedback</h2>
+      <!--
+        AGENT: Demonstrate consequential and recurring action loops, including
+        immediate response, progress, completion, failure, recovery,
+        cancellation, and undo. Include relevant permission, data-entry,
+        onboarding, modal, error-writing, motion, and haptic decisions. Match
+        feedback intensity to consequence and show accessible alternatives.
+        Do not invent interactions absent from the product.
+      -->
+      <div class="interaction-specimens" data-slot="interaction-and-feedback"></div>
+    </section>
+
+    <section id="content-assets">
+      <h2>Content, icons, imagery, and data</h2>
+      <!--
+        AGENT: Include project-specific voice examples, labels, icon families,
+        marks, illustrations, and visualization styles only when DESIGN.md
+        governs them. Use production assets or faithful representatives.
+
+        For icons, render the governed family or categories, source names,
+        glyph sizes, optical variants, target boundaries, icon-only and labeled
+        patterns, and applicable hover, focus, press, selected, disabled,
+        destructive, dark-mode, high-contrast, and RTL cases. State accessible
+        names and which icons are decorative.
+
+        Render marks, screenshots, and imagery at their actual target sizes.
+        Demonstrate crop and focal-point behavior, text on imagery, responsive
+        changes, and missing or broken states. For user-supplied images, include
+        extreme aspect ratios, pale or transparent backgrounds, boundary
+        treatment, and containment behavior. State each asset's source and
+        accessible role.
+      -->
+      <div class="content-specimens" data-slot="voice-and-system-content"></div>
+      <div class="icon-specimens" data-slot="icons"></div>
+      <div class="asset-specimens" data-slot="imagery-and-data"></div>
+    </section>
+
+    <section id="accessibility">
+      <h2>Accessibility and responsiveness</h2>
+      <!--
+        AGENT: Demonstrate, not merely list, semantic order and names,
+        screen-reader feedback, keyboard focus, touch and pointer targets,
+        contrast, non-color cues, text scaling and zoom, reduced motion,
+        localization, RTL behavior, narrow and wide layouts, orientation,
+        resizing, and supported themes or modes. Show complete representative
+        tasks with applicable settings, not isolated compliant components.
+      -->
+      <div class="accessibility-specimens" data-slot="accessibility"></div>
+      <div class="responsive-specimens" data-slot="responsive-behavior"></div>
+      <div class="input-specimens" data-slot="platform-and-input-behavior"></div>
+    </section>
+
+    <section id="decisions">
+      <h2>Decision index and unresolved questions</h2>
+      <!--
+        AGENT: Link consequential specimens to their DESIGN.md heading, token,
+        component, or source path. Surface unresolved decisions as unresolved;
+        never fill gaps by guessing.
+      -->
+      <div class="decision-index" data-slot="decision-index"></div>
+      <div class="deferred-decisions" data-slot="deferred-decisions"></div>
+    </section>
+  </main>
+
+  <!--
+    AGENT: The templates below are inert boilerplate. Copy and adapt them into
+    the corresponding data-slot containers, then remove unused templates.
+  -->
+
+  <template id="color-token-template">
+    <article class="color-token">
+      <div class="color-token__swatch" aria-hidden="true"></div>
+      <h4>[token name]</h4>
+      <dl>
+        <div><dt>Value</dt><dd>[exact value]</dd></div>
+        <div><dt>Group</dt><dd>[project group]</dd></div>
+        <div><dt>Role</dt><dd>[role]</dd></div>
+        <div><dt>Used by</dt><dd>[surfaces or components]</dd></div>
+        <div><dt>Pairs with</dt><dd>[foreground/background tokens]</dd></div>
+      </dl>
+    </article>
+  </template>
+
+  <template id="accent-family-template">
+    <article class="accent-family">
+      <h4>[accent family and owner]</h4>
+      <p>[Purpose, allowed uses, overlaps, and exclusions]</p>
+      <div class="accent-family__states">
+        <!-- AGENT: Render every applicable accent state with token and value. -->
+      </div>
+    </article>
+  </template>
+
+  <template id="type-role-template">
+    <article class="type-role">
+      <p class="type-role__meta">[token · size/line height · weight · tracking]</p>
+      <p class="type-role__sample">[Representative project content]</p>
+      <p class="type-role__use">[Role and responsive behavior]</p>
+    </article>
+  </template>
+
+  <template id="system-token-template">
+    <article class="system-token">
+      <div class="system-token__visual" aria-hidden="true"></div>
+      <h4>[token]</h4>
+      <p>[exact value, role, and typical use]</p>
+    </article>
+  </template>
+
+  <template id="component-template">
+    <article class="component-specimen">
+      <h3>[Component name]</h3>
+      <p>[Purpose and usage rule]</p>
+      <div class="component-specimen__variants">
+        <!-- AGENT: Render actual variants, sizes, content, and states here. -->
+      </div>
+      <p class="component-specimen__source">[Implementation source]</p>
+    </article>
+  </template>
+
+  <template id="icon-template">
+    <article class="icon-specimen">
+      <h3>[Icon concept or category]</h3>
+      <p>[Family, source, metaphor, usage rule, and exclusions]</p>
+      <div class="icon-specimen__sizes">
+        <!-- AGENT: Render actual glyph sizes beside their target boundaries. -->
+      </div>
+      <div class="icon-specimen__states">
+        <!-- AGENT: Render applicable input, selection, and semantic states. -->
+      </div>
+      <p>[Label, accessible name, localization, and RTL behavior]</p>
+    </article>
+  </template>
+
+  <template id="interaction-template">
+    <article class="interaction-specimen">
+      <h3>[Action or pattern]</h3>
+      <p>[Purpose and consequence]</p>
+      <ol>
+        <li>[Immediate response]</li>
+        <li>[Progress or result]</li>
+        <li>[Failure, recovery, cancellation, or undo]</li>
+      </ol>
+      <p>[Focus, announcement, reduced-motion, and alternative-input behavior]</p>
+    </article>
+  </template>
+
+  <script>
+    /*
+      AGENT: Add project-derived behavior only when specimens need interaction
+      to communicate the accepted system. Keep the reference usable without
+      script where possible. Do not add unrelated template behavior.
+    */
+  </script>
+</body>
+</html>
