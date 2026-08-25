@@ -1,216 +1,57 @@
 # Visual Hierarchy
 
-Visual hierarchy communicates the relative importance of interface elements.
-Rank information and actions deliberately so the user can identify what matters
-first, what supports it, and what can wait. When everything competes equally,
-the interface becomes noisy even when its individual styles are polished.
+Rank information and actions so users see what matters, what supports it, and what can wait.
 
-## Use size, weight, and contrast together
+## Levels and relationships
 
-Create primary, secondary, and tertiary levels with a combination of:
+Build primary, secondary, and tertiary levels with size, weight, contrast, position, and space. Keep every level readable; avoid giant primary text paired with tiny support text. Two text weights often cover product UI: `400–500` for ordinary text and `600–700` for emphasis.
 
-- size;
-- font or border weight;
-- foreground-to-background contrast;
-- position and surrounding space.
+If a primary element feels weak, reduce nearby competition before decorating it. Judge prominence relationally, inside the complete composition.
 
-Avoid making primary text enormous and secondary text too small. Preserve
-readable sizes, then use stronger weight or contrast for emphasis and softer
-contrast for supporting content. When choosing the actual colors or text tones,
-follow [color.md](color.md). When using space to establish importance or
-grouping, follow [layout-and-spacing.md](layout-and-spacing.md).
+Present data for the user's scan. Omit obvious labels, combine natural phrases such as “12 left in stock,” and emphasize whichever of label or value users seek first. Semantic HTML hierarchy and visual prominence are separate decisions: keep a logical outline, then style each role for its real importance.
 
-Two text weights usually cover ordinary interface work:
+Balance pixel weight against contrast. Dense icons may need less contrast than adjacent text; low-contrast borders may need more width. Evaluate the composition, not isolated tokens.
 
-- 400 or 500 for most text;
-- 600 or 700 for emphasis.
+## Actions and elevation
 
-Weights below 400 are often difficult to read at small sizes. De-emphasize
-small text with restrained contrast or size before reaching for a lighter
-weight.
+Rank actions by contextual priority:
 
-## Emphasize by reducing competition
+- **Primary:** main next step, usually one per view.
+- **Secondary:** clear without competing.
+- **Tertiary:** discoverable and quiet.
 
-When the primary element still does not stand out, reduce the prominence of
-nearby elements before adding more decoration to it. Examples include softening
-inactive navigation items or removing a sidebar surface that competes with the
-main content.
+Severity is separate. A destructive action may stay quiet until a confirmation surface, where it becomes the clear consequential choice.
 
-The test is relational: inspect an element against its neighbors, not in
-isolation.
+Elevation attracts attention and must match stacking order. Reserve high levels for temporary surfaces such as menus, dragged items, and dialogs.
 
-## Present labels according to the user's scan
+## Imagery
 
-This guidance applies to displayed data, not accessible labels for form
-controls.
+Treat imagery as content with visual weight. Establish layout with final assets or substitutes matching subject, aspect ratio, brightness, and focal placement. Preserve aspect ratio, important content inside a crop-safe region, and embedded color profiles where accurate reproduction matters.
 
-Prefer the value alone when its format or context identifies it clearly, such
-as an email address, phone number, or price. When a short phrase is clearer than
-a label-value pair, combine them:
+For text over imagery, test every permitted crop and worst-case asset. Seek stable contrast in this order:
 
-- `In stock: 12` becomes `12 left in stock`.
-- `Bedrooms: 3` becomes `3 bedrooms`.
+1. Use a quiet crop and separate text from the subject.
+2. Reposition the focal point.
+3. Add a restrained light or dark overlay.
+4. Adjust contrast and brightness.
+5. Tint or colorize when it supports identity.
+6. Use a diffuse text shadow only as reinforcement.
 
-When a label is necessary, decide whether the user scans for the value or the
-label:
+If contrast still depends on favorable pixels, move text onto its own surface.
 
-- If the value carries the meaning, keep the label smaller, lighter, or lower
-  contrast.
-- If users scan for named fields among similar specifications, give the label
-  slightly more prominence while keeping the value readable.
+Match assets to rendered size. Prefer vectors when substantial scaling is expected, but remember that vectors can still contain unsuitable detail. Provide simplified small variants; crop screenshots to legible regions instead of presenting unreadable miniature text. Inspect real size and target density on representative displays.
 
-Do not default every data point to equally weighted `label: value` rows. That
-structure hides the information's real priority.
+Unpredictable imagery needs a contract: container, aspect ratio, crop-or-fit policy, optional focal point, loading/missing/broken states, and a restrained boundary for pale or transparent assets. Test extreme portrait, landscape, low-quality, and transparent inputs.
 
-## Separate semantic and visual hierarchy
+Classify images as informative, functional, or decorative. Give the first two useful alternatives or accessible names; exclude decoration. Keep essential text and controls outside images.
 
-Choose HTML elements for meaning and accessibility, then style them for the
-interface's actual visual hierarchy. An `h1` remains the page's semantic
-heading even when the page title should be compact. A section title may behave
-visually like a supporting label when the section content deserves more
-attention.
+When depth or parallax affects imagery, assign explicit foreground, middle, and background roles. Keep motion subtle and recheck crop, focus, readability, and reduced-motion behavior.
 
-Browser default heading sizes are not design requirements. Preserve a logical
-document outline and accessible names without allowing tag choice to dictate
-prominence.
+## Gate
 
-## Balance visual weight and contrast
-
-Visual weight comes from the amount and density of pixels an element occupies.
-Balance it against contrast:
-
-- Lower the contrast of a heavy or solid icon beside text so the icon does not
-  dominate.
-- Increase the width of a low-contrast border when darkening it would make the
-  interface harsh.
-- Evaluate icons, borders, text, and filled surfaces as one composition rather
-  than assigning each the same contrast.
-
-## Rank actions by importance
-
-Style actions by their importance in the current context, not only by semantic
-type:
-
-- **Primary:** the page's main next step; obvious and high contrast.
-- **Secondary:** available and clear without competing with the primary action.
-- **Tertiary:** discoverable but quiet, often using link-like treatment.
-
-Most views need one primary action. Severity and priority are separate axes: a
-destructive action does not automatically deserve the strongest treatment. It
-may remain secondary or tertiary on the normal page, then become the primary,
-clearly destructive action inside its confirmation step.
-
-## Use elevation as hierarchy
-
-Elements that appear closer attract more attention. Give higher elevation only
-to content or interaction that must temporarily sit above its surroundings,
-such as a menu, dragged item, or modal. Keep ordinary content near the base
-plane so elevation retains meaning.
-
-Visual prominence and stacking order must agree: a high shadow on a low-priority
-element creates false hierarchy. Follow
-[depth-and-elevation.md](depth-and-elevation.md) for the light, shadow, layer,
-and interaction system.
-
-## Use imagery as part of the hierarchy
-
-Treat imagery as content with its own visual weight, not as decoration that can
-be swapped after layout is complete. A photograph, illustration, screenshot,
-or icon can dominate the composition, change perceived color, and determine
-where text can sit.
-
-### Design with representative final assets
-
-Use production-quality, project-appropriate imagery while establishing the
-layout. Resolution alone is insufficient: composition, crop, subject, lighting,
-and palette must support the product and the element's intended priority.
-
-When final assets are unavailable, use substitutes with the same subject,
-aspect ratio, brightness range, and focal placement. Mark them as temporary and
-recheck the composition with the final assets. A neutral placeholder does not
-expose real cropping, contrast, or visual-weight problems.
-
-### Preserve text contrast across the whole image
-
-Text over imagery must remain readable across the entire text area, every
-responsive crop, and every permitted image. Choose the least destructive
-solution that produces stable contrast:
-
-1. Select or crop to a visually quiet region.
-2. Reposition the focal point so subject and text do not compete.
-3. Add a light or dark overlay that reduces the image's tonal range beneath the
-   text.
-4. Adjust image contrast and compensate with brightness when an overlay changes
-   the whole image too much.
-5. Desaturate and tint or colorize the image when that also supports the brand.
-6. Add a restrained, diffuse text shadow only as local reinforcement.
-
-Test the actual text and worst permitted image rather than a favorable sample.
-If stable contrast still depends on a particular crop or pixel region, move the
-text onto its own surface. Follow [color.md](color.md) for foreground, overlay,
-and accessibility decisions.
-
-### Match every asset to its rendered size
-
-Vector format preserves edge sharpness, not an asset's visual suitability at
-every size. Detail, stroke weight, spacing, and silhouette must suit the size at
-which the asset is rendered.
-
-- Use an icon or illustration drawn for the intended scale. To give a small
-  icon more presence, retain its suitable size inside a larger supporting shape
-  instead of enlarging its strokes and limited detail.
-- Provide simplified small-size variants for detailed marks and icons. Let the
-  designer control what disappears instead of leaving detail loss to the
-  renderer.
-- Capture screenshots at an appropriate viewport and reserve enough space for
-  legible detail. When space is limited, crop to the relevant region or create
-  a faithful simplified view that communicates structure without pretending
-  tiny text is readable.
-
-Inspect assets at their real rendered size and target pixel density. Do not
-approve them only in a zoomed design canvas.
-
-### Constrain unpredictable imagery
-
-User-uploaded or externally supplied images need a layout contract because
-their aspect ratio, crop, background, and quality are unknown:
-
-- give each context a defined container and aspect-ratio policy;
-- choose crop-to-fill or fit-within based on whether losing image content is
-  acceptable;
-- preserve or collect a focal point when the subject must survive cropping;
-- provide explicit missing, loading, broken, and unsupported-image states;
-- separate pale, transparent, or background-matched images from the interface
-  with a restrained inner ring or inset shadow when needed;
-- test extreme portrait, landscape, transparent, low-contrast, and low-quality
-  inputs.
-
-The separation treatment belongs to the image container and should follow the
-project's [depth-and-elevation.md](depth-and-elevation.md) system. Avoid a strong
-border whose color competes with arbitrary image content.
-
-### Preserve the image's meaning
-
-Decide whether each image is informative, functional, or decorative. Provide a
-useful accessible name or alternative for informative and functional imagery;
-keep decorative imagery out of the accessibility tree. Keep essential text and
-controls in the interface rather than baking them into an image.
-
-## Review gate
-
-Before completing an interface-design pass, verify:
-
-1. The intended primary element is identifiable without explanation.
-2. Secondary and tertiary content remains readable but does not compete.
-3. Labels reflect what the user scans for.
-4. Semantic structure and visual prominence are independently correct.
-5. Icons, borders, and text feel balanced by weight and contrast.
-6. One action is primary where the view has a clear main next step.
-7. Destructive styling reflects both severity and contextual priority.
-8. Elevation reinforces importance and stacking order instead of decoration.
-9. Imagery has been judged at its final crop, size, and density.
-10. Text remains readable over every supported image and responsive crop.
-11. Icons, marks, and screenshots are designed for their rendered scale.
-12. User-supplied imagery cannot break layout or erase its own boundaries.
-13. Informative, functional, and decorative images have the correct accessible
-    treatment.
+- Primary content and main action are obvious without making support unreadable.
+- Labels and values match the user's scan; semantics and visual order are both correct.
+- Weight, contrast, action priority, elevation, and stacking agree.
+- Imagery works at final crop, size, density, and worst supported content.
+- Text contrast survives all permitted images; unpredictable assets cannot break layout.
+- Every image has the correct informative, functional, or decorative treatment.
