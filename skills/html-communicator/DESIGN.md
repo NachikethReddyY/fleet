@@ -23,6 +23,8 @@ Use this order: page, section, concept, explanation, evidence. Keep core meaning
 | Comparison | Short framing, tabs or aligned panels, exact-field table when useful, restrained pros/cons callouts |
 | Technical reference | Concept and diagram first; collapsed code, paths, migrations, and line evidence after |
 
+For a long study guide, put a plain-language survival map near the opening when the reader has limited review time. Keep it to the smallest set of concepts that unlocks the rest of the guide, pair each term with one concrete mental model, and give an interview-ready distinction or trade-off. Preserve the full lesson below it. Do not imply that a deep subject can be mastered in two minutes; make the short path useful on its own and honest about what it omits.
+
 ## 2. Theme and color
 
 Monochrome first. Color earns a role.
@@ -97,7 +99,11 @@ If labels need to shrink below minimum to fit one row, widen visual or wrap it. 
 
 Keep most sections on canvas. Establish hierarchy with type, spacing, alignment, and thin separators. Reserve containers for code, controls, diagrams, important callouts, selected states, and grouped data.
 
-Run a rectangle audit before publishing. Remove any border, background, radius, badge, or chip that does not communicate grouping, identity, state, data, or action. Prefer whitespace and dot separators for metadata; one container may group many items, and only compact file/skill references use the individual identity-token exception defined below.
+Run a rectangle audit before publishing. Remove any border, background, radius, badge, or chip that does not communicate grouping, identity, state, data, or action. Prefer whitespace and dot separators for metadata; one container may group many items, and only compact reference tokens use the individual identity-token exception defined below.
+
+Keep interview answers, talk tracks, executive summaries, and other long-form key prose on the document canvas by default. Use a clear label, a stronger opening sentence, a `65–72ch` measure, and spacing to establish importance.
+
+For a direct quote or rehearsable interview answer only, an asymmetric quote slab may establish speaker voice without looking like another generic card. Use a stronger `3px` left border, quiet `1px` top/right/bottom borders, square left corners, and gently rounded right corners: `border-radius: 0 10px 10px 0`. A `#111111` surface and `#2a2a2a` quiet borders are reliable defaults; the left edge may use cyan when the quote is the section's primary informational takeaway. Keep the label and quotation text aligned to that edge. Do not use this treatment for ordinary summaries, explanatory prose, or every answer on the page.
 
 Avoid cards inside cards or one repeated `dark rectangle + border + large radius` treatment. Give components distinct forms:
 
@@ -123,7 +129,9 @@ Avoid cards inside cards or one repeated `dark rectangle + border + large radius
 
 Diagrams must explain grouping, direction, transition, or hierarchy—not turn list items into boxes. Build conceptual groups first, then components and strong directional connections. Main flow should register within 2–3 seconds.
 
-Tables use aligned values, compact rows, thin separators, neutral surfaces, and color only on meaningful status/value. Round outer group, not every row.
+Process and request-flow diagrams must fit the intended content column without requiring page-level horizontal scrolling. Group steps by responsibility or system boundary—such as browser, HTTP/API, application, data access, and database—instead of giving every implementation file an equal card. Use labeled lanes, compact grouped stages, or a two-row continuation when six or more steps would become a stretched strip. Preserve unambiguous reading order when the layout stacks vertically on narrow screens. A diagram does not need its own bordered panel when spacing, lane labels, and connectors already establish the group.
+
+Tables use aligned values, compact rows, thin separators, neutral surfaces, and color only on meaningful status/value. Round outer group, not every row. Differentiate the header with at least one clear neutral cue: a `#181818–#1c1c1c` surface step, brighter neutral header text, or a stronger bottom separator. Do not rely on small gray uppercase text alone to distinguish the header from the body.
 
 ### Charts
 
@@ -164,6 +172,8 @@ Animate selection with `160–240ms` color/background movement and panel fade pl
 
 Use for key insight, warning, success/note, or critical issue. Use a `5%` semantic tint with no outer outline and no colored side rail. Prefer a familiar inline SVG using `currentColor`, a consistent `24 × 24` viewBox, and `16–18px` rendered size. Align the icon to the first text line. Color warning icon/label yellow and danger/critical icon/label red; keep body copy neutral. Use emoji only when its emotional or cultural meaning is the point.
 
+Match the icon to the statement, not merely to the callout color: use an information circle for a broad explanation, a link or relationship glyph for relational integrity, a shield for security, a database cylinder for persistence or stored data, a warning triangle for caution, and a check for a verified success. If no familiar icon improves recognition, omit it rather than falling back to a generic information icon.
+
 | Kind | Accent | Purpose |
 | --- | --- | --- |
 | Info | Cyan | Definition, insight, summary |
@@ -174,6 +184,8 @@ Use for key insight, warning, success/note, or critical issue. Use a `5%` semant
 ### Copyable code
 
 Every code, command, prompt, config, or file tree gets a compact `#141414` surface and header. Put the human-readable title at top left and the real type at top right: `SHELL`, `PYTHON`, `TYPESCRIPT`, `HTML`, `CSS`, `JSON`, `YAML`, `MARKDOWN`, `SQL`, `TREE`, or another real language. Render the type as small neutral text, not a colored or bordered badge.
+
+Apply accessible token-level syntax color to code blocks that are longer than three lines or central to the explanation. A reliable dark-theme mapping is comments `#888888`, keywords `#B471FA`, functions/types `#55E3F9`, strings `#39D970`, numbers/constants `#F6C107`, and punctuation/operators in neutral text. Keep every token readable against `#141414`, make the code understandable when color is removed, and avoid coloring whole lines or assigning a different hue to every identifier. In self-contained documents, emit escaped token spans directly; do not add a highlighting dependency. Copy behavior must return the plain code text without labels or visual markup.
 
 Place a familiar inline-SVG copy control as an overlay at the bottom right of the code portion. Hide it until the code block is hovered or the control receives keyboard focus; keep it visible on touch-only devices. Give it `aria-label="Copy …"` and `title="Copy"`; text is unnecessary when icon is recognizable. Copy nearest `<code>` text; show check/error feedback for about `1500ms`. Use `navigator.clipboard` with safe fallback. Preserve horizontal scrolling and readable focus states.
 
@@ -191,6 +203,8 @@ Place a familiar inline-SVG copy control as an overlay at the bottom right of th
 References are quiet evidence with one shared visual family and type-specific identity. A file reference uses a small file-type icon, a neutral filename, and an optional line span. A database table, Prisma model, schema field/column, enum, callable, route, API, package, config key, or error code uses a compact type glyph plus its neutral identifier. A skill reference uses its leading `$`. Show the shortest useful name and reveal a full path only when needed.
 
 Use reference-token styling whenever prose or a table asks the reader to locate, recognize, or return to a concrete named unit. For example, `schema.prisma` is a file token, `event_registrations` is a database-table token, `EventRegistration` is a model token, `eventId` is a schema-field token, and `findUnique` is a callable-symbol token. Plain syntax fragments, data types, values, commands, expressions, query fragments, and incidental identifiers remain unboxed monospace. When the same text appears in both roles, style only the referential occurrence. Audit every inline `<code>` or monospace fragment with this test: “Is the reader being pointed to a concrete unit, or being shown language syntax/value?” Do not turn every monospace word into a token.
+
+When explanatory prose teaches the identity or purpose of a Prisma schema attribute—such as `@map`, `@@map`, `@relation`, `@db.*`, `@unique`, `@@unique`, or `@@index`—treat each named attribute as a schema-attribute reference token so it is easy to find and compare. Use the purple enum/schema-attribute identity. Inside a Prisma code block, the same attributes remain syntax-highlighted keywords without chips. Operators and type modifiers such as `?` and `[]` remain ordinary inline code unless the prose points to a separately documented named feature.
 
 Use `li.ref` as the semantic hook for source and evidence rows. In a final source list, keep each row unboxed and use ordinary ordered-list markers. Reserve compact bubbles for the reference identity tokens defined below.
 
@@ -212,7 +226,9 @@ Use `li.ref` as the semantic hook for source and evidence rows. In a final sourc
 
 Only the icon receives type color. Reference text stays `#d4d4d8` or `#a1a1aa`; use `11–12px` mono text, `6px` radius, roughly `22–24px` height, and low/no border. Use a database cylinder rather than a generic grid or document glyph for SQL files, stored procedures, migrations, and other database-owned artifacts.
 
-File, symbol, and skill references may use individual compact tokens when the shape makes the referenced unit easier to recognize. Use an opaque surface, `6px` radius, about `24px` height, and tight `2–4px 8px` padding; never box the surrounding group. On the canvas, `#141414` is sufficient. Inside a `#111111` card or `#0d0d0d` disclosure, step the token up to roughly `#202020–#242424`; add a quiet `#343434` border only when the edge still disappears. Never reuse a token surface that is visually indistinguishable from its immediate parent. Let long tokens wrap or break with `max-width: 100%` and `overflow-wrap: anywhere` rather than widening the page.
+Inline reference tokens must share the surrounding text line, not sag below it or float above it. For a `22–24px` `inline-flex` token beside `15–16px` body text, start with `vertical-align: .1em`; do not copy a negative offset as a default. Measure the token box against an adjacent text `Range.getBoundingClientRect()` in a paragraph, list item, and table cell. Keep their vertical-center difference within `1px` when practical and never beyond `2px`. Adjust the `vertical-align` value for the actual font and line height rather than using transforms or relative positioning, which can move paint without fixing the inline line box.
+
+File, symbol, and skill references may use individual compact tokens when the shape makes the referenced unit easier to recognize. Use an opaque surface, `6px` radius, about `24px` height, and tight `2–4px 8px` padding; never box the surrounding group. On the canvas, `#141414` is sufficient. Inside a `#111111` card or `#0d0d0d` disclosure, step the token up to roughly `#202020–#242424`; add a quiet `#343434` border only when the edge still disappears. Never reuse a token surface that is visually indistinguishable from its immediate parent. Let long tokens wrap or break with `max-width: 100%`, `white-space: normal`, and `overflow-wrap: anywhere` rather than widening the page.
 
 ### References used
 
@@ -245,19 +261,19 @@ Before publishing, verify:
 
 1. Subject matches `<title>` and visible `<h1>`; computed H1 size never exceeds `43px`.
 2. Core message is clear without opening disclosures or reading code.
-3. Representation fits information.
+3. Representation fits information; process diagrams group steps by boundary, fit their content column, and preserve clear order without required horizontal scrolling.
 4. All CSS is in one `<style>`; all optional JS in one classic `<script>`; no dependencies.
 5. Tabs, disclosures, copy buttons, links, keyboard focus, and small-screen layout work.
 6. Text, chart, code-token, and nested reference-token contrast remain readable; color has a non-color cue.
 7. File stays below `512 KB`.
 8. Long document has quiet footer with date and exact provenance pattern: `Generated by <model> through <wrapper> Codex harness.` Omit skill name.
 9. Every colored element passes semantic audit: neutral facts remain white/gray; semantic and categorical color roles do not leak.
-10. Every code block has title-left/type-right plus a copy overlay on the code portion; every icon-only control has an accessible name; external links open in a new tab.
+10. Every code block has title-left/type-right, accessible syntax color when useful, and a copy overlay on the code portion; every icon-only control has an accessible name; callout and reference icons match the thing they represent; external links open in a new tab.
 11. Research, analysis, and factual guides list references used near the end.
-12. Rectangle audit passes: metadata is dot-separated, neutral counts/values are plain, file and skill badges are compact and individually meaningful, and every remaining container has a stated job.
+12. Rectangle audit passes: metadata is dot-separated, neutral counts/values are plain, long-form answers do not default to large bordered cards, direct-quote slabs keep square left corners and rounded right corners, reference tokens are compact and individually meaningful, inline reference-token centers align within `2px` of adjacent text, every inline monospace item was classified as reference identity or syntax, and every remaining container has a stated job.
 13. The first and every adjacent major section show a computed `1px solid #2a2a2a` separator with visible top breathing room; callouts use neither side rails nor outer outlines.
 14. Categorical chart colors are bright on black and do not repeat until the palette is exhausted; tab lists have no outer container styling.
-15. The document keeps at least `16px` clear space on both viewport sides; source lists use visible ordered markers, Harvard-style citations, wrapped long URLs, and a `24–32px` gap before the footer.
+15. The document keeps at least `16px` clear space on both viewport sides; table headers have a visible neutral distinction from body rows; source lists use visible ordered markers, Harvard-style citations, wrapped long URLs, and a `24–32px` gap before the footer.
 
 For each visual element ask: Does it improve understanding, hierarchy/state, or useful action? Could spacing or typography do same work more quietly? If simpler works, use it.
 

@@ -1,2 +1,3 @@
 .agents/
 *.html
+.DS_Store
