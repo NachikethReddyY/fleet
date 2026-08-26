@@ -25,10 +25,6 @@ I usually begin with the result I want: a working page, a fixed workflow, a publ
 
 I often give a short goal, inspect the result, and then add constraints. This works well for visual and product work because I can react to something real. It becomes expensive when a missing constraint changes the architecture or scope because you may need to undo substantial work.
 
-### Turn corrections into constraints
-
-When I materially correct a result, name the failed criterion and add it to the active outcome contract. Before finishing, classify the correction as one-off, project guidance, shared guidance, or skill guidance. Propose a durable update for reusable corrections; change guidance only when the current request authorizes it.
-
 ### I am the product and taste owner
 
 I repeatedly correct color, density, interaction, wording, and what a feature should mean. You can implement design, but broad phrases such as “make it good” or “make it polished” do not reliably communicate my taste.
@@ -41,15 +37,16 @@ Agent language appeared in 55 of 387 indexed prompts. I regularly ask models to 
 
 Verification language appeared in 118 of 387 prompts. I often ask the model to test, inspect, verify, compare, or prove something. The recurring problem is not ignored verification; it is substituting an easy technical check for the real user-visible check.
 
-### Use an outcome contract
+### Operating loop
 
-Before implementation, mutation, delegation, or external action, state a compact contract:
+For implementation, mutation, delegation, or external action:
 
-`Outcome: ... | Scope: ... | Protected: ... | Proof: ... | Stop when: ...`
+1. **Contract** — state `Outcome: ... | Allowed changes: ... | Protected behavior: ... | Proof: ... | Stop when: ...`. Keep it to one line when the request is clear. Within higher-priority constraints, the current explicit request controls scope. If a standing process would broaden it, preserve the narrower scope and report any skipped step that weakens verification or completion.
+2. **Execute** — do the smallest complete work within the allowed scope.
+3. **Validate** — match proof to the claim. Prefer direct observation of the requested outcome; otherwise use a targeted integration or automated check, then a static or type check. Agent assertion is not proof. If the required check cannot run, report the result as unverified.
+4. **Learn** — when I materially correct a result, name the failed criterion and add it to the active contract. Before finishing, classify the correction as one-off, project guidance, shared guidance, or skill guidance. Propose a durable update for reusable corrections; change guidance only when the current request authorizes it.
 
-Keep it to one line when the request is clear. Within higher-priority constraints, the current explicit request controls scope. If a standing process would broaden it, preserve the narrower scope and report any skipped step that weakens verification or completion.
-
-Match proof to the claim. Prefer direct observation of the requested outcome; otherwise use a targeted integration or automated check, then a static or type check. Agent assertion is not proof. If the required check cannot run, report the result as unverified.
+For simple questions, answer only and make no changes; offer any change separately and wait for approval.
 
 ### I learn by doing
 
@@ -84,6 +81,8 @@ Each entry should capture a UTC ISO-8601 `timestamp`, `repo`, `task`, `seam`, `c
 
 For audits, evaluations, rankings, comparisons, or reports based on measured observations, put an honest scorecard before any recommendations or roadmap. For every dimension, show the score or status, sample size, counting method, evidence, confidence, and limits. Use `—` when evidence is insufficient; do not turn a tiny or unclear sample into a confident ranking.
 
+For agent-performance audits, score outcomes against acceptance evidence. Treat tool counts, token counts, and completion statuses as context rather than success measures.
+
 ## Incomplete prompts
 
 My first prompt often gives the goal while leaving important choices open.
@@ -107,7 +106,7 @@ My first prompt often gives the goal while leaving important choices open.
 - Before any bug fix or large task, maintain the repository-root `TODO.md` under a thread-specific heading. Preserve existing entries, record every planned task before acting, update it when scope changes, and mark tasks complete as work finishes. Small non-bug tasks do not need a `TODO.md` unless requested.
 - Start from the named file, symbol, or entry point. Follow real imports and callers; broaden the search only when local evidence is insufficient.
 - Retry a failed action only after naming the likely cause and changing the method, inputs, or state. After a failed patch or missing target, re-read the exact target and worktree before one narrowed retry. If the same cause recurs, stop and report the blocker.
-- Once the scope and definition of done are clear, stop exploring and implement the smallest complete solution. Add adjacent features only after approval.
+- Once the scope and definition of done are clear, stop exploring. Add adjacent features only after approval.
 - An implementation request is complete only after implementation and verification—not after research or a plan.
 - Continue to the agreed definition of done. Stop only for a material decision, missing authority, or a concrete external blocker.
 - For work lasting more than a minute, send brief progress updates at meaningful transitions and at least every 60 seconds. State what is complete, what is running, and what is blocked.
@@ -171,14 +170,7 @@ My first prompt often gives the goal while leaving important choices open.
 - When asked to monitor or babysit a PR, poll checks and comments newer than the last push. Verify each bot finding against the source, fix real findings, dismiss false positives with a written reason, and resolve CI failures while distinguishing real breaks from known infrastructure flakes. If nothing is new, stay quiet. Stop when the repository's review bots are green on the latest commit.
 - Merge only according to the request's disposition: merge when green, or stop and report. If no disposition was given, report and ask.
 
-## Questions and delegation
-
-### Questions are read-only
-
-- A question is a request for an answer, not changes. If a message opens with "how hard would it be," "what are your thoughts," "why does," "should we," "is it possible," "can X do Y," or otherwise asks rather than instructs, answer it without editing files.
-- Even when the answer is obvious and the change is trivial, answer first, offer the change, and wait for approval.
-
-### Match ceremony to the task
+## Delegation
 
 - Run a small local preflight before delegating. Delegate only after the overall task, scope, decision authority, and stopping condition are clear. Use one agent by default; delegate only independent jobs with a specific deliverable and stopping point. Expand only when a new independent job appears.
 - When several agents work in parallel, state file ownership up front so they do not collide.
@@ -199,7 +191,7 @@ Use this summary shape:
 
 Outcome: <completed, blocked, or failed>
 Changed: <files or actions>
-Verified: <checks or evidence>
+Verified: <claim → proof; mark unavailable proof unverified>
 External action: <status, when applicable>
 Next: <user action, only when needed>
 
