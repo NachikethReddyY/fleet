@@ -19,10 +19,15 @@ Build readable communication artifacts, not products. Output one portable dark-m
 1. Read [DESIGN.md](DESIGN.md) completely.
 2. Identify document type, reader's first question, supporting evidence, and optional detail.
 3. Choose representations before layout: prose, table, diagram, chart, tabs, or disclosure.
-4. Write one semantic HTML file, no larger than 512 KB.
-5. Add default components when content supports them: collapsible detail, tabs for comparisons/categories, semantic callouts, and copy buttons for code or commands. Style concrete named references—such as files, schema tables/models/fields, routes, APIs, callables, and error codes—with the typed reference-token system in `DESIGN.md`; keep keywords, commands, expressions, literals, and example syntax as plain code. In the final bibliography, keep each complete citation row unboxed while retaining typed reference tokens for inline repository files or paths; external sources remain ordinary links with an external-link cue. Never invent content to force a component.
-6. Check content, hierarchy, semantic color, responsive layout, accessibility, interaction, and markup. Exercise every control; fix failed checks one by one.
-7. Upload through Postplan and return both artifact locations.
+4. For audits, evaluations, rankings, comparisons, or measured claims, build the honest scorecard before recommendations or a roadmap; follow the scorecard rules below.
+5. Write one semantic HTML file, no larger than 512 KB.
+6. Add default components when content supports them: collapsible detail, tabs for comparisons/categories, semantic callouts, and copy buttons for code or commands. Style concrete named references—such as files, schema tables/models/fields, routes, APIs, callables, and error codes—with the typed reference-token system in `DESIGN.md`; keep keywords, commands, expressions, literals, and example syntax as plain code. In the final bibliography, keep each complete citation row unboxed while retaining typed reference tokens for inline repository files or paths; external sources remain ordinary links with an external-link cue. Never invent content to force a component.
+7. Check content, hierarchy, semantic color, responsive layout, accessibility, interaction, and markup. Exercise every control; fix failed checks one by one.
+8. Upload through Postplan and return both artifact locations.
+
+## Honest scorecards
+
+For each scorecard dimension, show the score or status, evidence, sample size, counting method, confidence, and limits. State whether values are measured, sourced, estimated, or illustrative. Use `—` when evidence is insufficient; omit rankings that a tiny or unclear sample cannot support. Keep the scorecard before recommendations or the roadmap, and place a short methodology note beside it so the reader can judge the result before acting on it.
 
 ## Artifact contract
 
