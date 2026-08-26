@@ -23,7 +23,8 @@ Build readable communication artifacts, not products. Output one portable dark-m
 5. Write one semantic HTML file, no larger than 512 KB.
 6. Add default components when content supports them: collapsible detail, tabs for comparisons/categories, semantic callouts, and copy buttons for code or commands. Style concrete named references—such as files, schema tables/models/fields, routes, APIs, callables, and error codes—with the typed reference-token system in `DESIGN.md`; keep keywords, commands, expressions, literals, and example syntax as plain code. In the final bibliography, keep each complete citation row unboxed while retaining typed reference tokens for inline repository files or paths; external sources remain ordinary links with an external-link cue. Never invent content to force a component.
 7. Check content, hierarchy, semantic color, responsive layout, accessibility, interaction, and markup. Exercise every control; fix failed checks one by one.
-8. Upload through Postplan and return both artifact locations.
+8. Before upload, apply the publication privacy gate. For private-source artifacts, verify aggregation or anonymization and identify the destination's access mode; treat unknown access as public.
+9. Upload through Postplan and return both artifact locations.
 
 ## Honest scorecards
 
@@ -61,4 +62,4 @@ Standing permission: upload every artifact this skill creates or updates, includ
 4. If auth is missing, ask user to run `postplan auth login`, then retry without removing requested interactivity.
 5. Re-upload same absolute path to preserve its URL. Use `--new` only when user wants a separate draft.
 
-Upload success plus local path and returned URL means done. Never claim hosting before upload succeeds. Open browser only when verification is requested.
+Upload success plus local path, returned URL, and stated access mode means done. Never claim hosting before upload succeeds. Open browser only when verification is requested.

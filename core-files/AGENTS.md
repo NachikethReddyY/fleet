@@ -25,6 +25,10 @@ I usually begin with the result I want: a working page, a fixed workflow, a publ
 
 I often give a short goal, inspect the result, and then add constraints. This works well for visual and product work because I can react to something real. It becomes expensive when a missing constraint changes the architecture or scope because you may need to undo substantial work.
 
+### Turn corrections into constraints
+
+When I materially correct a result, name the failed criterion and add it to the active outcome contract. Before finishing, classify the correction as one-off, project guidance, shared guidance, or skill guidance. Propose a durable update for reusable corrections; change guidance only when the current request authorizes it.
+
 ### I am the product and taste owner
 
 I repeatedly correct color, density, interaction, wording, and what a feature should mean. You can implement design, but broad phrases such as “make it good” or “make it polished” do not reliably communicate my taste.
@@ -36,6 +40,16 @@ Agent language appeared in 55 of 387 indexed prompts. I regularly ask models to 
 ### I care about proof
 
 Verification language appeared in 118 of 387 prompts. I often ask the model to test, inspect, verify, compare, or prove something. The recurring problem is not ignored verification; it is substituting an easy technical check for the real user-visible check.
+
+### Use an outcome contract
+
+Before implementation, mutation, delegation, or external action, state a compact contract:
+
+`Outcome: ... | Scope: ... | Protected: ... | Proof: ... | Stop when: ...`
+
+Keep it to one line when the request is clear. Within higher-priority constraints, the current explicit request controls scope. If a standing process would broaden it, preserve the narrower scope and report any skipped step that weakens verification or completion.
+
+Match proof to the claim. Prefer direct observation of the requested outcome; otherwise use a targeted integration or automated check, then a static or type check. Agent assertion is not proof. If the required check cannot run, report the result as unverified.
 
 ### I learn by doing
 
@@ -82,7 +96,6 @@ My first prompt often gives the goal while leaving important choices open.
 - Translate vague requests into checkable criteria before acting: for “proper analysis,” identify the questions it must answer and evidence it must show; for “polished,” agree on two or three visible rules covering what to copy, what to avoid, and how to judge the result.
 - When I say “also,” ask whether the instruction adds to or replaces earlier scope when the context does not make that clear.
 - If I say “up to you,” choose and briefly state the decision, alternatives, and reasoning.
-- Define “done” observably before implementation: the page opens, the animation runs, the command passes, the file exists, or the external action succeeds. Use the smallest check that proves the requested behavior, then add broader checks only when the risk warrants them.
 - Store evidence under `.evidence/<task>/` when it materially helps prove completion; use screenshots or video recordings when they are the clearest proof.
 - For risky work, require independent evidence: a separate Luna validation check or a user-visible pass-or-fail test.
 
@@ -90,14 +103,15 @@ My first prompt often gives the goal while leaving important choices open.
 
 - Treat requested agents, skills, tools, and methods as requirements. If one is unavailable, say so before substituting.
 - Before editing, confirm the intended repository, branch, and worktree state.
+- Before relying on infrastructure or an external tool, verify its relevant prerequisites—required binary, authentication or permission, and network reachability. Report a failed prerequisite as the blocker instead of retrying speculatively.
 - Before any bug fix or large task, maintain the repository-root `TODO.md` under a thread-specific heading. Preserve existing entries, record every planned task before acting, update it when scope changes, and mark tasks complete as work finishes. Small non-bug tasks do not need a `TODO.md` unless requested.
 - Start from the named file, symbol, or entry point. Follow real imports and callers; broaden the search only when local evidence is insufficient.
-- Retry a failed action only after identifying the likely cause and changing the method, inputs, or state.
+- Retry a failed action only after naming the likely cause and changing the method, inputs, or state. After a failed patch or missing target, re-read the exact target and worktree before one narrowed retry. If the same cause recurs, stop and report the blocker.
 - Once the scope and definition of done are clear, stop exploring and implement the smallest complete solution. Add adjacent features only after approval.
 - An implementation request is complete only after implementation and verification—not after research or a plan.
 - Continue to the agreed definition of done. Stop only for a material decision, missing authority, or a concrete external blocker.
 - For work lasting more than a minute, send brief progress updates at meaningful transitions and at least every 60 seconds. State what is complete, what is running, and what is blocked.
-- For UI work, test the actual behavior in the browser. A typecheck does not prove the interface works. If a browser is not available to you tell me.
+- For UI work, directly test the requested behavior in the browser. A typecheck does not prove the interface works. If the browser is unavailable or the targeted check fails, mark visual verification as unavailable and do not claim it passed.
 
 ## General coding preferences
 
@@ -105,12 +119,13 @@ My first prompt often gives the goal while leaving important choices open.
 - Use type safety where it is useful.
 - Propose bold ideas when they can meaningfully benefit our work.
 - Treat external actions as action-scoped. Create or switch branches, commit, push, file/open/merge pull requests, publish, deploy, delete, or change shared external state only when the current prompt explicitly requests that action or explicitly invokes a purpose-specific action skill, such as `file-pr` when available. A review, plan, preparation, or diagnosis request does not authorize the external action. Once authorized, stay within scope and report whether it started, succeeded, failed, or needs authentication.
+- Treat publication as disclosure. Before publishing material derived from private or local data, classify its sensitivity, remove secrets and unnecessary identifiers or paths, prefer aggregates or anonymized examples, and state the destination's access mode. Treat unknown access as public; ask before exposure the user did not authorize.
 - Prefer focused tests. Avoid endless smoke tests and regression tests for feature deletions.
 - Before building a feature, plan its behavior and write tests first. Use those tests to verify the implementation rather than conforming tests to code after the fact.
 - Use concise comments to clarify non-obvious behavior and usage.
 - Keep related backend code together.
 - Update comments whenever behavior changes.
-- Preserve useful behavior outside the requested scope. Remove capabilities only when explicitly requested.
+- Preserve useful behavior outside the requested scope. For a stateful change, name the existing state or data invariant in the outcome contract and run the smallest regression proving it remains true. Remove capabilities only when explicitly requested.
 - When learning mode is active, use the learning loop above to build the mental model and make the user attempt the key seam before implementing it for them.
 - Keep product decisions visible: ask before removing, simplifying, or reinterpreting protected behavior.
 
@@ -168,8 +183,9 @@ My first prompt often gives the goal while leaving important choices open.
 - Run a small local preflight before delegating. Delegate only after the overall task, scope, decision authority, and stopping condition are clear. Use one agent by default; delegate only independent jobs with a specific deliverable and stopping point. Expand only when a new independent job appears.
 - When several agents work in parallel, state file ownership up front so they do not collide.
 - Use Luna for all subagent work at `xhigh` reasoning; use `max` only for an unusually difficult or precision-sensitive small job.
-- Give each Luna agent one single-sentence, quickly checkable job with a clear deliverable, owned area, and stop point. Suitable jobs include locating one definition or its callers, extracting or transforming data, making one mechanical edit, running one check, or giving one quiz question or hint.
+- Give each Luna agent one single-sentence, quickly checkable job naming its source scope, owned area, deliverable, and stop condition. The parent is the validator unless a high-risk task names an independent check. Suitable jobs include locating one definition or its callers, extracting or transforming data, making one mechanical edit, running one check, or giving one quiz question or hint.
 - Keep sustained implementation and broad review with the main agent. For high-risk or hard-to-reverse work, use separate Luna agents for individual validation checks.
+- A parent may claim completion only after every required child returns a usable result or a stated fallback is completed. Treat unresolved child failures as blockers.
 
 
 ## Final reporting
