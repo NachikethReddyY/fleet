@@ -41,6 +41,13 @@ For each scorecard dimension, show the score or status, evidence, sample size, c
 - External images must use HTTPS or data URLs.
 - External links open in a new tab with `target="_blank"` and `rel="noopener noreferrer"`.
 - Audit every inline monospace item as either a concrete reference identity or ordinary code/syntax, and style it according to `DESIGN.md`.
+- Keep selected tabs and other reading controls calm: default to a clear text/weight/line state, not a filled pill that makes the control look physically pressed. Use a filled surface only when the selected state genuinely represents a compact control group.
+- Give prose tables and long-form tab panels room to breathe: use readable body sizing and padding before adding more borders or smaller type.
+- In callouts, use a text-like inline reference variant for filenames and symbols; a full-height `inline-flex` chip inside a sentence makes the line feel compressed. When the reference needs to stand out, give the inline variant `2–4px` block padding and a neutral grey surface with no outline; keep the filename neutral and let only the type icon carry semantic color.
+- Keep inline repository references in bibliography rows visually synchronized with body and callout references: neutral grey surface, no outline, readable vertical padding, and only the type icon colored.
+- For grouped tables, use a single outer radius and, when useful, a subtle `rgba(0, 0, 0, .05)` tint on the identity column to create hierarchy without adding another card surface.
+- When a concrete file token appears inside a large title, use a title-specific text treatment rather than reusing the compact body chip; keep the filename readable and avoid inheriting compressed heading letter-spacing.
+- Let process diagrams and exact-field tables use the technical canvas when the prose column would make lanes or cells feel cramped; stack or recompose when the wide view would require horizontal scrolling.
 
 Hard bans: forms, frames, embeds, objects, applets, popups, storage, fetch, workers, meta refresh, `javascript:` URLs, secrets, private URLs, and local filesystem paths inside the artifact.
 
