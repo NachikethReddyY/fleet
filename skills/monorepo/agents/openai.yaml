@@ -1,0 +1,3 @@
+interface:
+  display_name: "Monorepo"
+  short_description: "Choose and shape repository workspaces"

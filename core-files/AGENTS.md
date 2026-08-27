@@ -15,6 +15,37 @@ I use u as a working team. you:
 - sometimes coordinates other agents.
   I stay responsible for the product idea, the feel of the interface, and whether the result is actually useful.
 
+## Project context — Fleet
+
+### What this is
+
+Fleet is the shared home for Nachiketh's cross-project agent guidance, global skills, and workflows. It is not an application; its product is how agents behave on this machine.
+
+### What matters
+
+- One authoritative home per rule. Copies must be symlinks or generated, never hand-edited duplicates.
+- Proof over assertion. A claim of done needs user-visible or focused-check evidence.
+- Smallest complete work. Broad skills and processes only after simpler boundaries fail.
+- Artifacts stay out of git. `artifacts/`, `.evidence/`, and generated reports are local-only.
+
+### How to verify
+
+- `sh tests/check-symlink-health.test.sh` — fixture suite for the symlink layout rules.
+- `sh scripts/check-symlink-health.sh` — real-environment health report; runs automatically on commit via `.githooks/`.
+
+### Where to look
+
+- `core-files/AGENTS.md` — canonical instructions (this file); everything else links here.
+- `skills/<name>/SKILL.md` — globally synchronized skills; `.agents/skills/<name>/SKILL.md` — Fleet-only skills.
+- `scripts/` — sync and health tooling; `workflows/` — repeatable process specs; `research/` — captured findings.
+
+### Shared language
+
+- **Contract** — one-line outcome scope (`Outcome | Allowed changes | Protected behavior | Proof | Stop when`).
+- **Proof** — evidence matched to the claim; agent assertion is not proof.
+- **Seam** — in learning mode, the one piece the user must produce himself.
+- **Fleet-local** — not synchronized to other harnesses or machines.
+
 ## How I work
 
 ### I am an outcome-first builder
@@ -47,6 +78,16 @@ For implementation, mutation, delegation, or external action:
 4. **Learn** — when I materially correct a result, name the failed criterion and add it to the active contract. Before finishing, classify the correction as one-off, project guidance, shared guidance, or skill guidance. Propose a durable update for reusable corrections; change guidance only when the current request authorizes it.
 
 For simple questions, answer only and make no changes; offer any change separately and wait for approval.
+
+### Fast path for bounded follow-ups
+
+When the user corrects an existing artifact or names a target and reference, and the change is narrow:
+
+- Treat the accepted design and unrelated behavior as protected. Read the target and one named reference, state a one-line contract, make the smallest patch, and verify the affected user-visible state.
+- Skip alternate mocks, delegation, and fresh research unless the design direction is changing, the reference is insufficient, or the user asks for them.
+- For historical or thread context, prefer the named artifact or structured index. Exclude logs, traces, `ndjson`, provider events, generated snapshots, and diffs from recursive searches unless that source is explicitly required; after one bounded probe fails, report the limitation and continue from available evidence.
+- For a width correction, measure the relevant rendered container once. Change only the named container and preserve the sidebar/grid geometry unless the user asks for a layout change.
+- Stop when the requested state is directly observed and the focused check passes; do not turn a narrow correction into a repository-wide audit.
 
 ### I learn by doing
 
@@ -139,7 +180,7 @@ My first prompt often gives the goal while leaving important choices open.
 ## Visual and design work
 
 - First match the project's existing design system and visual language: colors, typography, spacing, density, components, and interaction patterns. Project conventions override the defaults below.
-- Do not edit real components first. For any non-trivial UI, layout, or copy change, build several distinct static mocks, publish them with the `html-communicator` skill, report the URL, and stop. Wait for a selection before implementing.
+- Do not edit real components first. For a new or direction-changing non-trivial UI, layout, or copy change, build several distinct static mocks, publish them with the `html-communicator` skill, report the URL, and stop. For a narrow follow-up to an existing design with a named reference or screenshot, use the bounded-follow-up fast path instead.
 - If no clear design exists, use a deep near-black background rather than grey, white primary text, muted grey secondary text and borders, and restrained blue accents. Keep layouts dense and copy minimal; avoid decorative labels, excessive color, generic card or pill chrome, and filler or buzzword text.
 - Avoid continuously repainting CSS animations such as pulse, shimmer, blur, and spinners; they can saturate the GPU on high-refresh displays.
 
@@ -199,4 +240,5 @@ Next: <user action, only when needed>
 
 - Keep cross-project instructions here; place project-specific instructions in each repository's `AGENTS.md`.
 - Store global credentials in `~/.auth` with mode `600`; never copy them into repositories.
+- Keep Fleet-only skills in `~/Fleet/.agents/skills/<name>/SKILL.md`; they are not globally synchronized.
 - Store global skills in `~/Fleet/skills/<name>/SKILL.md`.

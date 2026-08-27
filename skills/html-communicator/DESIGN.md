@@ -39,7 +39,7 @@ Monochrome first. Color earns a role.
   --subtle:  #444444;
 
   --cyan:    #00e5ff;
-  --green:   #76ff03;
+  --green:   #0CEE9C;
   --yellow:  #ffea00;
   --red:     #ff1744;
   --purple:  #d500f9;
@@ -55,13 +55,13 @@ Monochrome first. Color earns a role.
 - Neutral sequence numbers, labels, counts, and ordinary facts stay white or gray. Green requires actual success, completion, safety, or positive measured value; never use it merely because an item looks important.
 - Use orange only for a real primary action. Ordinary source and reference links stay inline with a small external-link SVG; they are not button bubbles.
 - No gradients unless data represents a spectrum. Avoid full-color section backgrounds.
-- Categorical charts may use stable series colors `#3199FF`, `#FF5C73`, `#B471FA`, `#F6C107`, `#39D970`, and `#55E3F9`; keep category and status meanings separate.
+- Categorical charts may use stable series colors `#3199FF`, `#FF5C73`, `#B471FA`, `#F6C107`, `#0CEE9C`, and `#55E3F9`; keep category and status meanings separate.
 - On black, choose bright high-chroma accents that remain distinct at a glance. In one categorical chart, exhaust the available palette before repeating a color; keep fills near full opacity unless brightness overwhelms labels.
 - Semantic callout surfaces use `10%` accent opacity. Warning icons/labels use yellow; danger and critical icons/labels use red.
 
 ## 3. Width, type, and spacing
 
-Prose documents use a centered `780px` maximum. Technical documents use a `1280–1440px` canvas: prose remains `720–780px`, while diagrams, tables, and code may expand to `1200–1280px`. Single column is default. Stack layouts on phones.
+When a document uses the sidebar/grid shell, the `.content` column owns the single readable max-width (`max-width: 1000px`, centered). Everything inside it fills that column at `width: 100%` — headings, paragraphs, lists, quote slabs, callouts, tables, code, diagrams. Never add inner caps on individual elements (no `72ch` paragraph measures, no `760px` inner containers); if text feels too wide, lower the content-column cap instead. Single-column documents without a shell may center prose at `780px`; technical canvases without a shell may run `1280–1440px` with prose near `720–780px`. Single column is default. Stack layouts on phones.
 
 ```css
 body {
@@ -83,7 +83,7 @@ h3 { font-size: clamp(16px, 2vw, 19px); font-weight: 600; color: var(--text); }
 }
 ```
 
-- Technical body copy may rise to `16–18px`; never shrink normal text below `15px`. For a user-directed full-width technical document, let title, summary, and structural content fill one bounded canvas: retain at least the viewport gutter, cap the shell at `1760px`, and avoid inner component width caps. When a report uses a sidebar, cap and center its main content column at `1000px`; all grouped blocks within it fill that column.
+- Technical body copy may rise to `16–18px`; never shrink normal text below `15px`. For a user-directed full-width technical document, let title, summary, and structural content fill one bounded canvas: retain at least the viewport gutter, cap the shell at `1760px`, and avoid inner component width caps. When a report uses a sidebar, cap and center its main content column at `1000px`; everything within it — prose, lists, quotes, grouped tables, metric grids, disclosures, diagrams, and callouts — fills that column (`width: 100%; max-width: none`). The column cap is the only width cap in the document.
 - Diagram labels: at least `13.5px`, ideally `14px`. Code: `16px` in technical docs.
 - Keep at least `16px` clear margin on both viewport sides at every width. A reliable shell is `width: min(calc(100% - 32px), var(--max-width)); margin-inline: auto;`. Do not defeat this floor with negative margins or full-bleed children.
 - In a technical canvas, let grouped tables, metric grids, disclosures, diagrams, and callouts fill their parent content width (`width: 100%; max-width: none`). When a callout uses a grid for its icon and text, let its body fill the complete remaining text column; do not reapply the document prose measure inside it.
@@ -102,7 +102,7 @@ Keep most sections on canvas. Establish hierarchy with type, spacing, alignment,
 
 Run a rectangle audit before publishing. Remove any border, background, radius, badge, or chip that does not communicate grouping, identity, state, data, or action. Prefer whitespace and dot separators for metadata; one container may group many items, and only compact reference tokens use the individual identity-token exception defined below.
 
-Keep interview answers, talk tracks, executive summaries, and other long-form key prose on the document canvas by default. Use a clear label, a stronger opening sentence, a `65–72ch` measure, and spacing to establish importance.
+Keep interview answers, talk tracks, executive summaries, and other long-form key prose on the document canvas by default. Use a clear label, a stronger opening sentence, the full content-column width (`width: 100%`), and spacing to establish importance.
 
 For a direct quote or rehearsable interview answer only, an asymmetric quote slab may establish speaker voice without looking like another generic card. Use a stronger `3px` left border, quiet `1px` top/right/bottom borders, square left corners, and gently rounded right corners: `border-radius: 0 10px 10px 0`. A `#111111` surface and `#2a2a2a` quiet borders are reliable defaults; the left edge may use cyan when the quote is the section's primary informational takeaway. Keep the label and quotation text aligned to that edge. Do not use this treatment for ordinary summaries, explanatory prose, or every answer on the page.
 
@@ -161,9 +161,9 @@ Use tabs for parallel categories or comparisons, not sequential steps. Each tab 
 3. Panels with `role="tabpanel"`; inactive panels use `hidden`.
 4. Scoped JS using `addEventListener`, keyboard support, and no inline handlers.
 
-Keep the semantic tab-list row visually unboxed: no outer background, border, radius, or shadow. By default, use a line selector: active tab with bright text plus a restrained weight or thin underline; do not make it look like a physically pressed button. Use capsules only for a compact mode/category control group, and keep that group visually distinct from primary line-selected tabs when both are present.
+Use compact pill tabs in one unboxed, single-line tablist. Give the tablist no background, border, radius, or shadow; let only the selected pill use a clear filled step, bright text, and restrained weight. Color may accent the selected text or focus ring but must not carry selection alone. Do not add a second underline-style tab treatment to the same document.
 
-Give the unboxed tab list enough vertical room for the selected bubble: its block size should exceed the tab by at least `4px` (`2px` above and below). If selection uses a vertical transform or shadow, verify the selected tab's rendered rectangle stays fully inside the tab list so no border is clipped.
+Keep pills on one line with intrinsic widths and make the tablist horizontally scrollable when it exceeds the content column. Each label remains whole inside its pill; the list scrolls instead of wrapping, shrinking labels, or clipping the last item. Hide permanent scrollbar chrome when touch or trackpad scrolling remains available, preserve visible keyboard focus, and ensure keyboard selection brings the active pill into view. Verify the longest label, the last tab, and horizontal reachability at the narrowest viewport.
 
 Keep panel content close to its tabs: about `16–20px` from bar to panel heading, `8–12px` from heading to the first paragraph or list, and `12–16px` below the panel's final content.
 
@@ -186,7 +186,7 @@ Match the icon to the statement, not merely to the callout color: use an informa
 
 Every code, command, prompt, config, or file tree gets a compact `#141414` surface and header. Disclosures use `#0a0a0a` and fill their parent content width. Put the human-readable title at top left and the real type at top right: `SHELL`, `PYTHON`, `TYPESCRIPT`, `HTML`, `CSS`, `JSON`, `YAML`, `MARKDOWN`, `SQL`, `TREE`, or another real language. Render the type as small neutral text, not a colored or bordered badge.
 
-Apply accessible token-level syntax color to code blocks that are longer than three lines or central to the explanation. A reliable dark-theme mapping is comments `#888888`, keywords `#B471FA`, functions/types `#55E3F9`, strings `#39D970`, numbers/constants `#F6C107`, and punctuation/operators in neutral text. Keep every token readable against `#141414`, make the code understandable when color is removed, and avoid coloring whole lines or assigning a different hue to every identifier. In self-contained documents, emit escaped token spans directly; do not add a highlighting dependency. Copy behavior must return the plain code text without labels or visual markup.
+Apply accessible token-level syntax color to code blocks that are longer than three lines or central to the explanation. A reliable dark-theme mapping is comments `#888888`, keywords `#B471FA`, functions/types `#55E3F9`, strings `#0CEE9C`, numbers/constants `#F6C107`, and punctuation/operators in neutral text. Keep every token readable against `#141414`, make the code understandable when color is removed, and avoid coloring whole lines or assigning a different hue to every identifier. In self-contained documents, emit escaped token spans directly; do not add a highlighting dependency. Copy behavior must return the plain code text without labels or visual markup.
 
 Place a familiar inline-SVG copy control as an overlay at the bottom right of the code portion. Hide it until the code block is hovered or the control receives keyboard focus; keep it visible on touch-only devices. Give it `aria-label="Copy …"` and `title="Copy"`; text is unnecessary when icon is recognizable. Copy nearest `<code>` text; show check/error feedback for about `1500ms`. Use `navigator.clipboard` with safe fallback. Preserve horizontal scrolling and readable focus states.
 
@@ -201,7 +201,7 @@ Place a familiar inline-SVG copy control as an overlay at the bottom right of th
 
 ### Reference tokens
 
-References are quiet evidence with one shared visual family and type-specific identity. A file reference uses a small file-type icon, a neutral filename, and an optional line span. A database table, Prisma model, schema field/column, enum, callable, route, API, package, config key, or error code uses a compact type glyph plus its neutral identifier. A skill reference uses its leading `$`. Show the shortest useful name and reveal a full path only when needed.
+References are quiet evidence with one shared visual family and type-specific identity. A file reference uses a small file-type icon, a neutral filename, and an optional line span. A directory reference uses a blue macOS-style folder icon and never inherits a file-type mark. A database table, Prisma model, schema field/column, enum, callable, route, API, package, config key, or error code uses a compact type glyph plus its neutral identifier. A skill reference uses its leading `$`. Show the shortest useful name and reveal a full path only when needed.
 
 Use reference-token styling whenever prose or a table asks the reader to locate, recognize, or return to a concrete named unit. For example, `schema.prisma` is a file token, `event_registrations` is a database-table token, `EventRegistration` is a model token, `eventId` is a schema-field token, and `findUnique` is a callable-symbol token. Plain syntax fragments, data types, values, commands, expressions, query fragments, and incidental identifiers remain unboxed monospace. When the same text appears in both roles, style only the referential occurrence. Audit every inline `<code>` or monospace fragment with this test: “Is the reader being pointed to a concrete unit, or being shown language syntax/value?” Do not turn every monospace word into a token. A file reference inside a large heading is a special case: use a larger, text-like title treatment with no compact chip background, and prevent the heading's compressed letter-spacing from distorting the filename.
 
@@ -211,8 +211,9 @@ Use `li.ref` as the semantic hook for source and evidence rows. In a final sourc
 
 | Type | Icon/accent |
 | --- | --- |
+| Directory/folder | compact macOS-style folder SVG with a tab and layered `#79C2FF`, `#3199FF`, and `#9DD5FF` fills |
 | JavaScript | `JS`, `#F6C107` |
-| Markdown | `MD`, `#39D970` |
+| Markdown | `MD`, `#0CEE9C` |
 | HTML | `<>`, `#3199FF` |
 | CSS | `#` |
 | JSON | `{ }` |
@@ -222,10 +223,10 @@ Use `li.ref` as the semantic hook for source and evidence rows. In a final sourc
 | Model or entity | compact node/data-model SVG, `#B471FA` |
 | Schema field or database column | `↳` or compact field SVG, `#F6C107` |
 | Enum or schema attribute | `E` or `◇`, `#B471FA` |
-| Config, environment key, or package | `$` or compact package/config SVG, `#39D970` |
+| Config, environment key, or package | `$` or compact package/config SVG, `#0CEE9C` |
 | Error code | `!`, `#FFEA00` |
 
-Only the icon receives type color. Reference text stays `#d4d4d8` or `#a1a1aa`; use `11–12px` mono text, `6px` radius, roughly `22–24px` height, and low/no border. Use a database cylinder rather than a generic grid or document glyph for SQL files, stored procedures, migrations, and other database-owned artifacts.
+Only the icon receives type color. Reference text stays `#d4d4d8` or `#a1a1aa`; use `11–12px` mono text, `6px` radius, roughly `22–24px` height, and low/no border. For a directory path—with or without a trailing slash—use a compact inline SVG with the familiar folder tab and layered blue surfaces; hide the token's default pseudo-icon so labels such as `MD` cannot appear beside it. Use a database cylinder rather than a generic grid or document glyph for SQL files, stored procedures, migrations, and other database-owned artifacts.
 
 Inline reference tokens must share the surrounding text line, not sag below it or float above it. For a `22–24px` `inline-flex` token beside `15–16px` body text, start with `vertical-align: .1em`; do not copy a negative offset as a default. Measure the token box against an adjacent text `Range.getBoundingClientRect()` in a paragraph, list item, and table cell. Keep their vertical-center difference within `1px` when practical and never beyond `2px`. Adjust the `vertical-align` value for the actual font and line height rather than using transforms or relative positioning, which can move paint without fixing the inline line box. If a body token makes the line look cramped, use a text-like inline variant with inherited line height and reduced vertical padding rather than shrinking the surrounding prose. Use that text-like variant inside callouts unless the reference itself is the subject of the callout. When the reference is important enough to need emphasis, the text-like variant may use `2–4px` block padding and a neutral grey surface with no outline; keep the filename neutral and let the icon carry the type color.
 
@@ -264,16 +265,16 @@ Before publishing, verify:
 2. Core message is clear without opening disclosures or reading code.
 3. Representation fits information; process diagrams group steps by boundary, fit their content column, and preserve clear order without required horizontal scrolling.
 4. All CSS is in one `<style>`; all optional JS in one classic `<script>`; no dependencies.
-5. Tabs, disclosures, copy buttons, links, keyboard focus, and small-screen layout work.
+5. Tabs, disclosures, copy buttons, links, keyboard focus, and small-screen layout work; pill tablists stay on one horizontally scrollable line with whole labels and a reachable last tab at the narrowest viewport.
 6. Text, chart, code-token, and nested reference-token contrast remain readable; color has a non-color cue.
 7. File stays below `512 KB`.
 8. Long document has quiet footer with date and exact provenance pattern: `Generated by <model> through <wrapper> Codex harness.` Omit skill name.
 9. Every colored element passes semantic audit: neutral facts remain white/gray; semantic and categorical color roles do not leak.
 10. Every code block has title-left/type-right, accessible syntax color when useful, and a copy overlay on the code portion; every icon-only control has an accessible name; callout and reference icons match the thing they represent; external links open in a new tab.
 11. Research, analysis, and factual guides list references used near the end.
-12. Rectangle audit passes: metadata is dot-separated, neutral counts/values are plain, long-form answers do not default to large bordered cards, direct-quote slabs keep square left corners and rounded right corners, reference tokens are compact and individually meaningful, inline reference-token centers align within `2px` of adjacent text, every inline monospace item was classified as reference identity or syntax, and every remaining container has a stated job.
+12. Rectangle audit passes: metadata is dot-separated, neutral counts/values are plain, long-form answers do not default to large bordered cards, direct-quote slabs keep square left corners and rounded right corners, reference tokens are compact and individually meaningful, directories use blue folder icons while file-type marks remain exclusive to files, inline reference-token centers align within `2px` of adjacent text, every inline monospace item was classified as reference identity or syntax, and every remaining container has a stated job.
 13. The first and every adjacent major section show a computed `1px solid #2a2a2a` separator with visible top breathing room; callouts use neither side rails nor outer outlines.
-14. Categorical chart colors are bright on black and do not repeat until the palette is exhausted; tab lists have no outer container styling.
+14. Categorical chart colors are bright on black and do not repeat until the palette is exhausted; tablists are unboxed and only the selected pill receives a filled surface.
 15. The document keeps at least `16px` clear space on both viewport sides; table headers have a visible neutral distinction from body rows; source lists use visible ordered markers, Harvard-style citations, wrapped long URLs, and a `24–32px` gap before the footer.
 
 For each visual element ask: Does it improve understanding, hierarchy/state, or useful action? Could spacing or typography do same work more quietly? If simpler works, use it.

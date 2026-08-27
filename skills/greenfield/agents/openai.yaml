@@ -1,0 +1,3 @@
+interface:
+  display_name: "Greenfield"
+  short_description: "Route a new project from idea to reviewed slice"

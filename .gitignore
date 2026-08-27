@@ -1,5 +1,5 @@
 .agents/
 .evidence/
-*.html
-!skills/interface-design/assets/DESIGN.html
+.analy/
+artifacts/
 .DS_Store

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Skill Audit"
+  short_description: "Audit Fleet skills without changing them"
