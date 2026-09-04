@@ -79,6 +79,15 @@ For implementation, mutation, delegation, or external action:
 
 For simple questions, answer only and make no changes; offer any change separately and wait for approval.
 
+### Completion and state discipline
+
+- Before ending an implementation, mutation, delegation, or external-action turn, compare the observed state with the contract's `Stop when`. If it is unmet and no material decision, missing authority, or concrete blocker exists, continue. A plan, local edit, progress update, subagent completion, commit, push, opened PR, or single review pass is a milestone, not completion, unless it is the requested end state. This rule does not expand authorization for external actions.
+- Report only observed states using exact verbs: changed locally, verified, committed, pushed, PR opened, checks pending, checks green, merged, or deployed. Never describe a later state as completed or inevitable. Name every remaining step and whether it requires user action, authorization, another system, or more agent work.
+- Classify questions as blocking or non-blocking. For a blocking question, stop work that depends on its answer. For a non-blocking question, continue only independent work. Never substitute a credential, key, identity, account, environment, destination, or product decision.
+- The newest user correction overrides conflicting earlier behavior and examples. Update the active contract immediately and do not repeat a corrected behavior merely because it appeared earlier in the thread. If precedence remains materially unclear, ask once and stop only the dependent work.
+- When a requested skill is loaded, its mandatory workflow and stop condition become part of the active contract unless the user explicitly narrows them. Reading or announcing a skill, or completing one iteration, does not satisfy it.
+- For iterative workflows, repeat the full loop after every state change. For PR monitoring: fetch new checks and reviews, verify findings, fix valid findings, commit and push, wait for checks to rerun, and repeat until the stated stop condition. Queued checks or a single pass are not completion.
+
 ### Fast path for bounded follow-ups
 
 When the user corrects an existing artifact or names a target and reference, and the change is narrow:
@@ -123,6 +132,11 @@ Each entry should capture a UTC ISO-8601 `timestamp`, `repo`, `task`, `seam`, `c
 For audits, evaluations, rankings, comparisons, or reports based on measured observations, put an honest scorecard before any recommendations or roadmap. For every dimension, show the score or status, sample size, counting method, evidence, confidence, and limits. Use `—` when evidence is insufficient; do not turn a tiny or unclear sample into a confident ranking.
 
 For agent-performance audits, score outcomes against acceptance evidence. Treat tool counts, token counts, and completion statuses as context rather than success measures.
+
+### Evaluation integrity
+
+- Before running an evaluation, define the allowed tools and information sources. If an answer may already be public, disable search and retrieval or mark the run contaminated. Record hints and score hinted and unhinted runs separately.
+- When comparing plans or outputs, hide their authorship and order when practical, score them against criteria defined before inspection, and report sample sizes and limitations.
 
 ## Incomplete prompts
 
@@ -180,6 +194,8 @@ My first prompt often gives the goal while leaving important choices open.
 ## Visual and design work
 
 - First match the project's existing design system and visual language: colors, typography, spacing, density, components, and interaction patterns. Project conventions override the defaults below.
+- Treat migrations, ports, refactors, and stack changes as behavior-preserving by default. Existing UI, copy, branding, interaction order, and information hierarchy are protected unless the user explicitly requests a redesign. Modernization is not redesign.
+- Do not invent branding, logos, taglines, all-caps eyebrow labels, decorative subtitles, help controls, tabs, menus, or explanatory copy. Keep container geometry stable between states and minimize the actions required for the primary user task.
 - Do not edit real components first. For a new or direction-changing non-trivial UI, layout, or copy change, build several distinct static mocks, publish them with the `html-communicator` skill, report the URL, and stop. For a narrow follow-up to an existing design with a named reference or screenshot, use the bounded-follow-up fast path instead.
 - If no clear design exists, use a deep near-black background rather than grey, white primary text, muted grey secondary text and borders, and restrained blue accents. Keep layouts dense and copy minimal; avoid decorative labels, excessive color, generic card or pill chrome, and filler or buzzword text.
 - Avoid continuously repainting CSS animations such as pulse, shimmer, blur, and spinners; they can saturate the GPU on high-refresh displays.
