@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Thinking"
+  short_description: "Apply human-centered design to complex problems"
+  default_prompt: "Use $design-thinking to reframe this challenge and plan the next evidence-producing iteration."

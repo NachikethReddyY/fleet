@@ -15,7 +15,7 @@ A **workflow** is the spec of one loop, made real. You run a workflow on a loop:
 
 ## Executable handoff
 
-When the user approves making a workflow executable, add a compact handoff to its spec naming the trigger, inputs, ordered steps and skills, allowed capabilities, human checkpoint, proof, failure policy, and stop condition. Keep those decisions in the workflow; then hand off the file to [`thread-analysis`](../thread-analysis/SKILL.md). `loop-me` designs the workflow and does not run it.
+When the user approves a supported manual analysis workflow, add a compact handoff to its spec naming the trigger, inputs, ordered steps and skills, allowed capabilities, human checkpoint, proof, failure policy, and stop condition. The local [`thread-analysis`](../thread-analysis/SKILL.md) route can manually run only the `thread-analysis` and `weekly-skill-health` read-only analysis workflows. Other workflow execution is unavailable in this checkout; preserve the design as documentation and state that it cannot be run here. `loop-me` designs workflows and does not run them.
 
 ## Vocabulary
 

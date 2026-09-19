@@ -6,6 +6,7 @@ fleet_root=${FLEET_SYMLINK_ROOT:-$(CDPATH= cd -- "$script_dir/.." && pwd)}
 user_home=${FLEET_SYMLINK_HOME:-$(CDPATH= cd -- ~ && pwd)}
 
 core_agents="$fleet_root/core-files/AGENTS.md"
+fleet_agents="$fleet_root/core-files/FLEET.md"
 core_claude="$fleet_root/core-files/CLAUDE.md"
 source_skills="$fleet_root/skills"
 local_skills="$fleet_root/.agents/skills"
@@ -210,6 +211,7 @@ check_local_skill() {
   for skills_root in \
     "$user_home/.codex/skills" \
     "$user_home/.claude/skills" \
+    "$user_home/.gemini/skills" \
     "$user_home/.config/opencode/skills" \
     "$user_home/.copilot/skills" \
     "$user_home/.pi/agent/skills"
@@ -230,18 +232,23 @@ check_local_skill() {
   local_count=$((local_count + 1))
 }
 
-if [ ! -f "$core_agents" ] || [ ! -f "$core_claude" ] || [ ! -d "$source_skills" ] || [ ! -d "$local_skills" ]; then
+if [ ! -f "$fleet_agents" ] || [ ! -f "$core_agents" ] || [ ! -f "$core_claude" ] || [ ! -d "$source_skills" ] || [ ! -d "$local_skills" ]; then
   echo "Fleet symlink sources are incomplete under $fleet_root" >&2
   exit 2
 fi
 
+check_link "instruction" "$fleet_root/AGENTS.md" "$fleet_agents"
 check_link "instruction" "$user_home/.codex/AGENTS.md" "$core_agents"
 check_link "instruction" "$user_home/.claude/CLAUDE.md" "$core_claude"
+check_link "instruction" "$user_home/.gemini/GEMINI.md" "$core_agents"
 check_link "instruction" "$user_home/.config/opencode/AGENTS.md" "$core_agents"
+check_link "instruction" "$user_home/.pi/agent/AGENTS.md" "$core_agents"
+check_link "instruction" "$user_home/.pi/AGENTS.md" "$core_agents"
 
 for skills_root in \
   "$user_home/.codex/skills" \
   "$user_home/.claude/skills" \
+  "$user_home/.gemini/skills" \
   "$user_home/.config/opencode/skills" \
   "$user_home/.copilot/skills" \
   "$user_home/.pi/agent/skills"
@@ -250,6 +257,28 @@ do
     check_link "global-root" "$skills_root" "$source_skills"
     continue
   fi
+
+  # Only report links owned by Fleet; provider/plugin-managed skills are unrelated.
+  for candidate in "$skills_root"/*
+  do
+    [ -L "$candidate" ] || continue
+    raw_target=$(readlink "$candidate")
+    case $raw_target in
+      /*) linked_path=$raw_target ;;
+      *) linked_path=$(dirname -- "$candidate")/$raw_target ;;
+    esac
+    # Canonicalize the parent even when a removed skill leaves a dangling link.
+    if [ -d "$(dirname -- "$linked_path")" ]; then
+      target_parent=$(CDPATH= cd -- "$(dirname -- "$linked_path")" && pwd -P)
+      source_parent=$(CDPATH= cd -- "$source_skills" && pwd -P)
+      candidate_name=$(basename -- "$candidate")
+      if [ "$target_parent" = "$source_parent" ] &&
+        { [ ! -d "$linked_path" ] || [ ! -d "$source_skills/$candidate_name" ]; }; then
+        report "STALE" "global-skill" "$candidate" "$linked_path"
+        unhealthy=$((unhealthy + 1))
+      fi
+    fi
+  done
 
   for skill_path in "$source_skills"/*
   do

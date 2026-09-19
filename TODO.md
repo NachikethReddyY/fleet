@@ -1,3 +1,27 @@
+# Aston Martin F1 sustainability concepts — 2026-09-19
+
+- [x] Confirm the target Notion database schema and capture the official Aston Martin F1 2024/2025 sustainability evidence plus relevant FIA constraints.
+- [x] Develop three separate Design Thinking briefs: logistics emissions, circular parts/material reuse, and race-to-road energy insights.
+- [x] Create and visually verify one self-contained HTML artifact for each concept.
+- [x] Publish the three artifacts through Postplan and verify their public URLs.
+- [x] Create three separate Notion database entries, link each artifact, and fetch them back for verification.
+
+# Token-limit reduction Postplan guide — 2026-09-14
+
+- [x] Retrieve and verify the supplied video's original-English captions and metadata.
+- [x] Extract the video's concrete token-reduction workflow with timestamped source support.
+- [x] Define artifact checks before implementation and create the self-contained HTML guide.
+- [x] Validate content, responsive markup, accessibility semantics, privacy, and file size; runtime browser interaction remained unavailable because no Playwright browser is installed.
+- [x] Publish through Postplan and verify the returned public URL.
+
+# Source notes skill and YouTube trial — 2026-09-14
+
+- [x] Define focused checks for skill discovery, source fidelity, requested-focus analysis, and output traceability.
+- [x] Create the global `source-notes` skill without duplicating source-specific retrieval workflows.
+- [x] Sync the new skill into configured harnesses and verify symlink health.
+- [x] Run the skill workflow against the supplied YouTube video and save its source-backed note.
+- [x] Verify caption coverage, note claims, citations, and final file locations.
+
 # Direction context and fail-fast checks — 2026-08-26
 
 - [x] Add a "Project context" direction section to `core-files/AGENTS.md` (what this is / what matters / how to verify / where to look / shared language).
@@ -88,3 +112,49 @@
 - [x] Add prompt-problem detection and repair rules.
 - [x] Add decision ownership, learning safeguards, independent proof, and scoped `TODO.md` rules.
 - [x] Verify the instruction changes and record evidence.
+
+# Firecrawl Docker auto-recovery — 2026-09-05
+
+- [x] Add focused tests for local recovery with Docker running and with OrbStack stopped.
+- [x] Retry local Firecrawl requests after starting Docker and the Firecrawl Compose stack.
+- [x] Document configuration and verify a live web search.
+
+# Cross-provider history audit — 2026-09-19
+
+- [x] Inventory local provider stores and establish deduplicated coverage, dates, and model/cost attribution limits.
+- [x] Extract all accessible conversations into a local audit index with parent/subagent links and evidence pointers.
+- [x] Review behavior and outcome evidence using Sol and Terra; separate automated screening from qualitative review.
+- [x] Compare observed failure patterns with current Fleet guidance and skills.
+- [x] Produce and verify a scorecard, model usage assessment, and scoped proposed improvement plan without changing guidance.
+
+# Tool argument failures audit follow-up — 2026-09-19
+
+- [x] Inspect retained tool failure receipts for type/schema violations and distinguish them from code compilation or runtime failures.
+- [x] Verify representative malformed arguments, correction/retry behavior, and model attribution.
+- [x] Add a scoped improvement to the audit and plan; create the local HTML improvements list.
+- [x] Verify counts and references; static HTML checks passed. Rendering/interactions unverified: browser binding unavailable and native pipe closed.
+
+# Report reference icons — 2026-09-19
+
+- [x] Match file and directory references to HTML Communicator type icons; preserve report content and layout.
+- [x] Verify all 19 references, visually inspect the named skill-file marks in Helium, and republish the existing Postplan draft (version 2; HTTP 200).
+
+# Task-based model scorecards — 2026-09-19
+
+- [x] Add the current report’s icon-compliance failure as improvement 12.
+- [x] Define an evidence-based per-task rubric and assess Codex and other-provider tasks with Sol/Terra.
+- [x] Aggregate comparable criteria by model and task class, retaining unknowns and attribution limits.
+- [x] Add task scorecards to the existing HTML, verify them, and publish the same Postplan URL.
+
+# Implement history-audit improvements — 2026-09-19
+
+- [x] Split shared and Fleet-only instruction ownership; verify layout and identify runtime verification limits.
+- [x] Restore configured skill links and cover stale links without deleting them.
+- [x] Apply portable routing, learning-seam and complete tool-contract guidance.
+- [x] Replay completion, routing, learning and authority scenarios with retained redacted fixtures.
+- [x] Remove implicit publication/comments; add HTML requirement coverage checks.
+- [x] Retire unavailable routes, repair references, and add integrity checks.
+- [x] Fix examples, canonical-root references and credential documentation; retain distinct artifact lifecycles.
+- [x] Add manual, local-only episode measurement schema and validated reporting.
+- [x] Record dataset pilot and credential migration boundaries without altering other projects or secrets.
+- [x] Run focused suites and real health checks; produce a package-by-package implementation report.

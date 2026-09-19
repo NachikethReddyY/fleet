@@ -22,6 +22,8 @@ Give gradients, glows, patterns, illustration, motion, and icons named roles. Ke
 
 Choose cards, tables, tabs, charts, sidebars, timelines, and diagrams only when content has the relationship they represent. Fewer patterns can be the more complete design.
 
+Number items only when order means something. Labels and headline accents must communicate structure or meaning; omit those added solely to make a composition look designed.
+
 ## Restraint audit
 
 1. **Rectangles:** remove each border, fill, radius, and shadow; restore only cues needed for grouping, action, ownership, or layer.

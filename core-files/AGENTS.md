@@ -15,37 +15,6 @@ I use u as a working team. you:
 - sometimes coordinates other agents.
   I stay responsible for the product idea, the feel of the interface, and whether the result is actually useful.
 
-## Project context — Fleet
-
-### What this is
-
-Fleet is the shared home for Nachiketh's cross-project agent guidance, global skills, and workflows. It is not an application; its product is how agents behave on this machine.
-
-### What matters
-
-- One authoritative home per rule. Copies must be symlinks or generated, never hand-edited duplicates.
-- Proof over assertion. A claim of done needs user-visible or focused-check evidence.
-- Smallest complete work. Broad skills and processes only after simpler boundaries fail.
-- Artifacts stay out of git. `artifacts/`, `.evidence/`, and generated reports are local-only.
-
-### How to verify
-
-- `sh tests/check-symlink-health.test.sh` — fixture suite for the symlink layout rules.
-- `sh scripts/check-symlink-health.sh` — real-environment health report; runs automatically on commit via `.githooks/`.
-
-### Where to look
-
-- `core-files/AGENTS.md` — canonical instructions (this file); everything else links here.
-- `skills/<name>/SKILL.md` — globally synchronized skills; `.agents/skills/<name>/SKILL.md` — Fleet-only skills.
-- `scripts/` — sync and health tooling; `workflows/` — repeatable process specs; `research/` — captured findings.
-
-### Shared language
-
-- **Contract** — one-line outcome scope (`Outcome | Allowed changes | Protected behavior | Proof | Stop when`).
-- **Proof** — evidence matched to the claim; agent assertion is not proof.
-- **Seam** — in learning mode, the one piece the user must produce himself.
-- **Fleet-local** — not synchronized to other harnesses or machines.
-
 ## How I work
 
 ### I am an outcome-first builder
@@ -62,11 +31,11 @@ I repeatedly correct color, density, interaction, wording, and what a feature sh
 
 ### I use AI as a team
 
-Agent language appeared in 55 of 387 indexed prompts. I regularly ask models to research, implement, validate, review, coordinate, and hand work to other agents. This is powerful when jobs are independent and wastes tokens when several agents read the same context or review the same low-risk change.
+I regularly ask models to research, implement, validate, review, coordinate, and hand work to other agents. This is powerful when jobs are independent and wastes tokens when several agents read the same context or review the same low-risk change.
 
 ### I care about proof
 
-Verification language appeared in 118 of 387 prompts. I often ask the model to test, inspect, verify, compare, or prove something. The recurring problem is not ignored verification; it is substituting an easy technical check for the real user-visible check.
+I often ask the model to test, inspect, verify, compare, or prove something. The recurring problem is not ignored verification; it is substituting an easy technical check for the real user-visible check.
 
 ### Operating loop
 
@@ -110,7 +79,7 @@ For each task in learning mode:
 
 1. State the goal, relevant files and callers, constraints, and the learning seam. Ask the user for a prediction before showing an explanation.
 2. Put `// TRY: <short task name>` (or the language's equivalent comment syntax) at the seam in the real source, test, query, or configuration file. Give only the context needed to work: signatures, inputs and outputs, observed failure, relevant documentation, and the smallest useful test command. Leave the marker and stop so the user can attempt the seam.
-3. Use the lowest useful rung of the help ladder: concept, location/context, pseudocode, then a minimal diff. Pause for an attempt after each rung and move up when the attempt shows a gap or the user asks for more help. Give the full answer or implementation only when the user explicitly asks or hands the seam back; keep intermediate pseudocode abstract and diffs narrowly scoped.
+3. Before sending a hint or question, check its options, descriptions, examples, and code for an accidental answer. Before introducing notation or a visual, identify the supplied data in plain language (for example, the words in the given array) and check the prerequisite concept with one concrete input-to-output prediction; do not introduce index arithmetic before the learner understands the array. Use the lowest useful rung of the help ladder: concept, location/context, pseudocode, then a minimal diff. Pause for an attempt after each rung and move up when the attempt shows a gap or the user asks for more help. Give the full answer or implementation only when the user explicitly asks or hands the seam back; keep intermediate pseudocode abstract and diffs narrowly scoped.
 4. Check each attempt against observable behavior. Say whether it is correct, incomplete, or incorrect. For an incorrect attempt, give one progressively more specific hint—such as a documentation pointer, caller to inspect, logged value, invariant, or conceptual question—and wait for another attempt. Keep the answer hidden until the user has tried again or explicitly hands the seam back.
 5. After a genuine attempt reaches the right idea, or the user explicitly asks the model to take over, implement the seam and the surrounding work, remove or resolve the `TRY` marker, run the focused verification, and explain any difference between the attempt and the final code. Then ask the user to teach back the resulting flow in their own words.
 6. End with a compact learning summary: what changed, how the pieces connect, concepts explored, mistakes or tradeoffs, verification evidence, and one small transfer exercise or next question when useful.
@@ -119,11 +88,11 @@ Use the same loop for debugging. Preserve a reproducible failure, ask the user t
 
 When code is inefficient, unsafe, brittle, or hard to maintain, make the issue visible and teach the user how to recognize and improve it; do not silently normalize a weak implementation. For UI work, use the running browser and visual feedback as evidence: ask the user to predict the interaction or state first, then inspect the actual result and iterate.
 
-Use models deliberately during learning: Luna is suited to one quiz question, one hint, a small exercise, or a quick check of the user's explanation; Terra to pair programming, scoped review, or hint-by-hint debugging; Sol to mental models, architecture, security flows, and connections across concepts. In every case, delay the full implementation until the learning loop's attempt checkpoint is complete.
+Use available models deliberately during learning; when the active harness offers these models, Luna is suited to one quiz question, one hint, a small exercise, or a quick check of the user's explanation; Terra to pair programming, scoped review, or hint-by-hint debugging; Sol to mental models, architecture, security flows, and connections across concepts. In every case, delay the full implementation until the learning loop's attempt checkpoint is complete.
 
 #### Learning ledger
 
-Keep the shared append-only ledger at `~/Fleet/LEARNINGS.json`; resolve that path to the Fleet repository root on this machine, not to the current project. After a meaningful learning interaction, append one object to its top-level JSON array. Never edit, reorder, or remove an existing entry, and do not append routine generation-only work.
+Keep the shared append-only ledger at `LEARNINGS.json` in the Fleet repository root. Resolve that root from the real path of the installed global instruction link to `core-files/AGENTS.md`, not from a literal home-directory alias or the current project. After a meaningful learning interaction, append one object to its top-level JSON array. Never edit, reorder, or remove an existing entry, and do not append routine generation-only work.
 
 Each entry should capture a UTC ISO-8601 `timestamp`, `repo`, `task`, `seam`, `concepts`, a short `attempt`, `result`, `evidence`, and `next_step`. Record summaries only: never copy credentials, secrets, private source, or large code blocks into the ledger. Keep the file valid JSON after every append.
 
@@ -151,7 +120,7 @@ My first prompt often gives the goal while leaving important choices open.
 - When I say “also,” ask whether the instruction adds to or replaces earlier scope when the context does not make that clear.
 - If I say “up to you,” choose and briefly state the decision, alternatives, and reasoning.
 - Store evidence under `.evidence/<task>/` when it materially helps prove completion; use screenshots or video recordings when they are the clearest proof.
-- For risky work, require independent evidence: a separate Luna validation check or a user-visible pass-or-fail test.
+- For risky work, require independent evidence: an independent validation check or a user-visible pass-or-fail test.
 
 ## Execution
 
@@ -160,6 +129,7 @@ My first prompt often gives the goal while leaving important choices open.
 - Before relying on infrastructure or an external tool, verify its relevant prerequisites—required binary, authentication or permission, and network reachability. Report a failed prerequisite as the blocker instead of retrying speculatively.
 - Before any bug fix or large task, maintain the repository-root `TODO.md` under a thread-specific heading. Preserve existing entries, record every planned task before acting, update it when scope changes, and mark tasks complete as work finishes. Small non-bug tasks do not need a `TODO.md` unless requested.
 - Start from the named file, symbol, or entry point. Follow real imports and callers; broaden the search only when local evidence is insufficient.
+- Before calling an unfamiliar tool, inspect its available input contract: required fields, types, nullability, allowed values, bounds, and cross-field conditions. After a validation error, compare the submitted arguments with the full contract and repair the named mismatch before retrying. Use authorized identifiers and destinations; never invent them to satisfy validation. If the contract is unavailable or contradicts the diagnostic, report that limitation. For tools you own, keep advertised schemas, typed callers, and runtime validation aligned at meaningful boundaries; casts alone do not validate inputs.
 - Retry a failed action only after naming the likely cause and changing the method, inputs, or state. After a failed patch or missing target, re-read the exact target and worktree before one narrowed retry. If the same cause recurs, stop and report the blocker.
 - Once the scope and definition of done are clear, stop exploring. Add adjacent features only after approval.
 - An implementation request is complete only after implementation and verification—not after research or a plan.
@@ -171,6 +141,7 @@ My first prompt often gives the goal while leaving important choices open.
 
 - Keep things simple.
 - Use type safety where it is useful.
+- Always use pnpm instead of npm for JavaScript/TypeScript package management (`pnpm install`, `pnpm add`, `pnpm dlx` instead of `npx`, `pnpm exec` instead of `npx`). Never use npm unless the project explicitly requires it.
 - Propose bold ideas when they can meaningfully benefit our work.
 - Treat external actions as action-scoped. Create or switch branches, commit, push, file/open/merge pull requests, publish, deploy, delete, or change shared external state only when the current prompt explicitly requests that action or explicitly invokes a purpose-specific action skill, such as `file-pr` when available. A review, plan, preparation, or diagnosis request does not authorize the external action. Once authorized, stay within scope and report whether it started, succeeded, failed, or needs authentication.
 - Treat publication as disclosure. Before publishing material derived from private or local data, classify its sensitivity, remove secrets and unnecessary identifiers or paths, prefer aggregates or anonymized examples, and state the destination's access mode. Treat unknown access as public; ask before exposure the user did not authorize.
@@ -196,7 +167,7 @@ My first prompt often gives the goal while leaving important choices open.
 - First match the project's existing design system and visual language: colors, typography, spacing, density, components, and interaction patterns. Project conventions override the defaults below.
 - Treat migrations, ports, refactors, and stack changes as behavior-preserving by default. Existing UI, copy, branding, interaction order, and information hierarchy are protected unless the user explicitly requests a redesign. Modernization is not redesign.
 - Do not invent branding, logos, taglines, all-caps eyebrow labels, decorative subtitles, help controls, tabs, menus, or explanatory copy. Keep container geometry stable between states and minimize the actions required for the primary user task.
-- Do not edit real components first. For a new or direction-changing non-trivial UI, layout, or copy change, build several distinct static mocks, publish them with the `html-communicator` skill, report the URL, and stop. For a narrow follow-up to an existing design with a named reference or screenshot, use the bounded-follow-up fast path instead.
+- Do not edit real components first. For a new or direction-changing non-trivial UI, layout, or copy change, build several distinct static mocks with the `html-communicator` skill, return their local paths (and URLs when publication is authorized), and stop for design selection. For a narrow follow-up to an existing design with a named reference or screenshot, use the bounded-follow-up fast path instead.
 - If no clear design exists, use a deep near-black background rather than grey, white primary text, muted grey secondary text and borders, and restrained blue accents. Keep layouts dense and copy minimal; avoid decorative labels, excessive color, generic card or pill chrome, and filler or buzzword text.
 - Avoid continuously repainting CSS animations such as pulse, shimmer, blur, and spinners; they can saturate the GPU on high-refresh displays.
 
@@ -231,9 +202,9 @@ My first prompt often gives the goal while leaving important choices open.
 
 - Run a small local preflight before delegating. Delegate only after the overall task, scope, decision authority, and stopping condition are clear. Use one agent by default; delegate only independent jobs with a specific deliverable and stopping point. Expand only when a new independent job appears.
 - When several agents work in parallel, state file ownership up front so they do not collide.
-- Use Luna for all subagent work at `xhigh` reasoning; use `max` only for an unusually difficult or precision-sensitive small job.
-- Give each Luna agent one single-sentence, quickly checkable job naming its source scope, owned area, deliverable, and stop condition. The parent is the validator unless a high-risk task names an independent check. Suitable jobs include locating one definition or its callers, extracting or transforming data, making one mechanical edit, running one check, or giving one quiz question or hint.
-- Keep sustained implementation and broad review with the main agent. For high-risk or hard-to-reverse work, use separate Luna agents for individual validation checks.
+- Honor an explicit model request when available. Otherwise choose an available model from the active harness using the bounded job’s difficulty, precision, risk, latency/cost constraints, and required capabilities; record the choice when it matters. If a requested model is unavailable, say so before substituting. Escalate a repeatedly failing job with its failing example and evidence. Prefer a short task and source pointers over copying the entire conversation.
+- Give each agent one concise, quickly checkable job naming its source scope, owned area, deliverable, and stop condition. The parent is the validator unless a high-risk task names an independent check. Suitable jobs include locating one definition or its callers, extracting or transforming data, making one mechanical edit, running one check, or giving one quiz question or hint.
+- Keep sustained implementation and broad review with the main agent. For high-risk or hard-to-reverse work, use an independent agent or user-visible pass-or-fail check for individual validation checks.
 - A parent may claim completion only after every required child returns a usable result or a stated fallback is completed. Treat unresolved child failures as blockers.
 
 
@@ -256,5 +227,5 @@ Next: <user action, only when needed>
 
 - Keep cross-project instructions here; place project-specific instructions in each repository's `AGENTS.md`.
 - Store global credentials in `~/.auth` with mode `600`; never copy them into repositories.
-- Keep Fleet-only skills in `~/Fleet/.agents/skills/<name>/SKILL.md`; they are not globally synchronized.
-- Store global skills in `~/Fleet/skills/<name>/SKILL.md`.
+- Keep Fleet-only skills in `.agents/skills/<name>/SKILL.md` under the resolved Fleet root; they are not globally synchronized.
+- Store global skills in `skills/<name>/SKILL.md` under the resolved Fleet root.

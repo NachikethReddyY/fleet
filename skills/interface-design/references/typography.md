@@ -18,6 +18,8 @@ Align mixed sizes on typographic baselines. Match paragraph alignment to languag
 
 ## Adaptation and links
 
+One family can carry the whole system. Add a second only for a distinct role; avoid changing fonts merely for novelty. Keep action vocabulary consistent from control to confirmation so users can recognize the result.
+
 Text must scale, zoom, reflow, localize, and support right-to-left content without clipping, overlap, missing controls, or forced horizontal reading. Preserve essential meaning before shortening secondary copy. Test long names, translations, dates, and numbers.
 
 Keep terminology, capitalization, and tone consistent. Lead control labels with a clear action where useful; errors name the problem and concrete correction without blame.

@@ -24,7 +24,7 @@ The core primitive is a **Site**: publish a file or folder and get a live URL at
 
 here.now also includes **workspaces** — shared team accounts where Sites belong to the team and serve at `{label}.{workspace}.here.now` (see "Publish to a workspace" below).
 
-To install or update (recommended): `npx skills add heredotnow/skill --skill here-now -g`
+To install or update (recommended): `pnpm dlx skills add heredotnow/skill --skill here-now -g`
 
 For repo-pinned/project-local installs, run the same command without `-g`.
 
@@ -67,7 +67,8 @@ If the docs fetch fails or times out, continue with the local skill and live API
 - Required binaries: `curl`, `file`, `jq`
 - Optional environment variable: `$HERENOW_API_KEY`
 - Optional Drive token variable: `$HERENOW_DRIVE_TOKEN`
-- Optional credentials file: `~/.herenow/credentials`
+- Canonical optional credentials file: `~/.auth/here-now/credentials`, mode `0600`.
+- The bundled scripts currently read `~/.herenow/credentials`; keep that path as a symlink to the canonical file for compatibility.
 - Bundled helpers:
   - `./scripts/publish.sh` for publishing sites
   - `./scripts/drive.sh` for private Drive storage
@@ -171,17 +172,27 @@ The publish script reads the API key from these sources (first match wins):
 
 1. `--api-key {key}` flag (CI/scripting only — avoid in interactive use)
 2. `$HERENOW_API_KEY` environment variable
-3. `~/.herenow/credentials` file (recommended for agents)
+3. `~/.herenow/credentials`, a compatibility symlink to `~/.auth/here-now/credentials` (recommended for agents)
 
-To store a key, write it to the credentials file:
+Credential creation or migration is a separate action. A request that supplies or obtains a new key and asks to configure it authorizes new-key setup; do not add another confirmation. Before setup, check that neither credential path exists and stop rather than overwrite or migrate either one. Never read or print an existing value merely to document this layout.
 
 ```bash
-mkdir -p ~/.herenow && echo "{API_KEY}" > ~/.herenow/credentials && chmod 600 ~/.herenow/credentials
+if [ -e ~/.auth/here-now/credentials ] || [ -L ~/.auth/here-now/credentials ] || \
+   [ -e ~/.herenow/credentials ] || [ -L ~/.herenow/credentials ]; then
+  printf '%s\n' 'credentials already exist; refusing to overwrite or migrate' >&2
+  exit 1
+fi
+umask 077
+mkdir -p ~/.auth/here-now ~/.herenow
+read -r -s HERENOW_NEW_KEY
+printf '%s' "$HERENOW_NEW_KEY" > ~/.auth/here-now/credentials
+ln -s ~/.auth/here-now/credentials ~/.herenow/credentials
+unset HERENOW_NEW_KEY
 ```
 
-**IMPORTANT**: After receiving an API key, save it immediately — run the command above yourself. Do not ask the user to run it manually. Avoid passing the key via CLI flags (e.g. `--api-key`) in interactive sessions; the credentials file is the preferred storage method.
+Avoid passing the key via CLI flags (e.g. `--api-key`) in interactive sessions; the canonical credentials file is the preferred storage method.
 
-Never commit credentials or local state files (`~/.herenow/credentials`, `.herenow/state.json`) to source control.
+Never commit credentials or local state files (`~/.auth/here-now/credentials`, `~/.herenow/credentials`, `.herenow/state.json`) to source control.
 
 ## Getting an API key
 
@@ -208,7 +219,17 @@ curl -sS https://here.now/api/auth/agent/verify-code \
 5. Save the returned `apiKey` yourself (do not ask the user to do this):
 
 ```bash
-mkdir -p ~/.herenow && echo "{API_KEY}" > ~/.herenow/credentials && chmod 600 ~/.herenow/credentials
+if [ -e ~/.auth/here-now/credentials ] || [ -L ~/.auth/here-now/credentials ] || \
+   [ -e ~/.herenow/credentials ] || [ -L ~/.herenow/credentials ]; then
+  printf '%s\n' 'credentials already exist; refusing to overwrite or migrate' >&2
+  exit 1
+fi
+umask 077
+mkdir -p ~/.auth/here-now ~/.herenow
+read -r -s HERENOW_NEW_KEY
+printf '%s' "$HERENOW_NEW_KEY" > ~/.auth/here-now/credentials
+ln -s ~/.auth/here-now/credentials ~/.herenow/credentials
+unset HERENOW_NEW_KEY
 ```
 
 ## State file

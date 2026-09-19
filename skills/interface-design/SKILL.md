@@ -45,6 +45,12 @@ After the flow exposes what the feature needs, preserve accepted `DESIGN.md` dec
 
 Choose one coherent personality before choosing isolated values. Express it through typography, color, shape, density, motion, and language. Define small scales only where current decisions repeat. Use representative content and realistic states; appearance must support the task rather than showcase components.
 
+For a new direction, derive visual choices from the product's subject, audience, and vocabulary. Before styling, summarize palette roles, type roles, and layout intent; check them against the brief. If the same proposal would fit an unrelated product unchanged, revisit the unsupported choices. Preserve explicit preferences and accepted systems, including familiar styles; distinctiveness alone does not justify redesign.
+
+Tune layout variation, motion, and information density independently. A distinctive layout need not animate; a dense workspace need not feel visually loud. Explain the choices using the user's task and references rather than preset numeric scores. Preserve existing settings in a scoped redesign unless the request changes them.
+
+Distinguish a named design system from visual inspiration. Reuse the project's components and tokens; when actual adoption of another system is requested, check its supported implementation before recreating controls. A reference's appearance alone does not authorize changing dependencies or architecture. Describe inspired treatments as adaptations, not official implementations.
+
 When a material direction is unresolved, create temporary local HTML showing controlled alternatives of the real feature. Hold behavior, content, state, and viewport constant; vary only the decision under review. Label each option and its trade-off. Use neighboring values for fine choices and broader alternatives for personality choices. Stop once the meaningful choice is visible.
 
 High-fidelity work requires either an accepted system covering the feature or user approval for new material choices. Direct user specifications count as approval for what they settle. Temporary comparisons may retain alternatives; canonical artifacts contain only accepted decisions.
@@ -62,6 +68,10 @@ After approval:
 If implementation exposes another material visual choice, return to comparison and approval. Otherwise verify representative viewports, inputs, themes, text sizes, accessibility settings, and interaction states. Completion requires a working user job, purposeful visual hierarchy, passed applicable reference gates, and synchronized canonical artifacts when the task creates or changes a system.
 
 ## Reference router
+
+The visual-direction guidance incorporates selected ideas from [Anthropic's frontend-design skill](https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md), adapted to this skill's product scope and approval workflow.
+
+Independent visual controls and the distinction between systems and inspiration are adapted from [Taste Skill](https://github.com/Leonxlnx/taste-skill/blob/main/skills/taste-skill/SKILL.md). Its landing-page defaults do not apply to this product-interface workflow.
 
 Always read [experience-principles.md](references/experience-principles.md). The references translate portable Apple HIG strengths into product and web practice; use native Apple values or components only when targeting that platform. Select every branch the current decision touches, skip unrelated files, read each selected file completely, and apply its final gate or checklist.
 

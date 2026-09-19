@@ -7,3 +7,5 @@ repo=$(git rev-parse --show-toplevel)
 sh "$repo/tests/check-symlink-health.test.sh"
 sh "$repo/scripts/check-symlink-health.sh" >/dev/null
 echo "symlink health: ok"
+
+python3 "$repo/scripts/check-skill-references.py"

@@ -6,11 +6,12 @@ fleet_root=${FLEET_SYMLINK_ROOT:-$(CDPATH= cd -- "$script_dir/.." && pwd)}
 user_home=${FLEET_SYMLINK_HOME:-$(CDPATH= cd -- ~ && pwd)}
 
 core_agents="$fleet_root/core-files/AGENTS.md"
+fleet_agents="$fleet_root/core-files/FLEET.md"
 core_claude="$fleet_root/core-files/CLAUDE.md"
 source_skills="$fleet_root/skills"
 # Keep "$fleet_root/.agents/skills" Fleet-local; only this source is global.
 
-if [ ! -f "$core_agents" ] || [ ! -f "$core_claude" ]; then
+if [ ! -f "$fleet_agents" ] || [ ! -f "$core_agents" ] || [ ! -f "$core_claude" ]; then
   echo "Missing canonical instruction files under $fleet_root/core-files" >&2
   exit 1
 fi
@@ -35,13 +36,18 @@ ensure_symlink() {
   ln -s "$source_path" "$target_path"
 }
 
+ensure_symlink "$fleet_agents" "$fleet_root/AGENTS.md"
 ensure_symlink "$core_agents" "$user_home/.codex/AGENTS.md"
 ensure_symlink "$core_claude" "$user_home/.claude/CLAUDE.md"
+ensure_symlink "$core_agents" "$user_home/.gemini/GEMINI.md"
 ensure_symlink "$core_agents" "$user_home/.config/opencode/AGENTS.md"
+ensure_symlink "$core_agents" "$user_home/.pi/agent/AGENTS.md"
+ensure_symlink "$core_agents" "$user_home/.pi/AGENTS.md"
 
 for skills_root in \
   "$user_home/.codex/skills" \
   "$user_home/.claude/skills" \
+  "$user_home/.gemini/skills" \
   "$user_home/.config/opencode/skills" \
   "$user_home/.copilot/skills" \
   "$user_home/.pi/agent/skills"
@@ -60,4 +66,4 @@ do
   done
 done
 
-echo "Fleet instructions and global skills synced to Codex, Claude, OpenCode, and configured agent skill roots."
+echo "Fleet instructions and global skills synced to Codex, Claude, Gemini, OpenCode, Pi, and configured agent skill roots."

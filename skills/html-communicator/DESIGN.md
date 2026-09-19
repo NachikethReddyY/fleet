@@ -151,6 +151,7 @@ Multi-section documents should use all four when natural content exists. Short d
 ### Collapsible sections
 
 Use native `<details>` and `<summary>` for optional detail, references, appendices, and long implementation proof. Style summary as a compact disclosure; show a plus/minus state with CSS. Keep core conclusions outside.
+Give every accordion or `<details>` a visible neutral `1px solid #2a2a2a` border in both its closed and `[open]` states; preserve the border when it opens.
 
 ### Tabs
 
@@ -188,7 +189,7 @@ Every code, command, prompt, config, or file tree gets a compact `#141414` surfa
 
 Apply accessible token-level syntax color to code blocks that are longer than three lines or central to the explanation. A reliable dark-theme mapping is comments `#888888`, keywords `#B471FA`, functions/types `#55E3F9`, strings `#0CEE9C`, numbers/constants `#F6C107`, and punctuation/operators in neutral text. Keep every token readable against `#141414`, make the code understandable when color is removed, and avoid coloring whole lines or assigning a different hue to every identifier. In self-contained documents, emit escaped token spans directly; do not add a highlighting dependency. Copy behavior must return the plain code text without labels or visual markup.
 
-Place a familiar inline-SVG copy control as an overlay at the bottom right of the code portion. Hide it until the code block is hovered or the control receives keyboard focus; keep it visible on touch-only devices. Give it `aria-label="Copy …"` and `title="Copy"`; text is unnecessary when icon is recognizable. Copy nearest `<code>` text; show check/error feedback for about `1500ms`. Use `navigator.clipboard` with safe fallback. Preserve horizontal scrolling and readable focus states.
+Place an icon-only familiar inline-SVG copy button as an overlay at the bottom right of the code portion. Hide it until the code block is hovered or the control receives keyboard focus; keep it visible on touch-only devices. Use no visible text label; give it `aria-label="Copy …"` and `title="Copy"`. Copy nearest `<code>` text; show check/error feedback for about `1500ms`. Use `navigator.clipboard` with safe fallback. Preserve horizontal scrolling and readable focus states.
 
 ## 7. Supporting components
 

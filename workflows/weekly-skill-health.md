@@ -31,4 +31,4 @@ stopCondition: Stop after the report is saved and reviewed, or record a concrete
 
 # Weekly skill health
 
-Run this workflow manually through [thread-analysis](../.agents/skills/thread-analysis/SKILL.md); it has no scheduler.
+Run this workflow manually through [skill-audit](../skills/skill-audit/SKILL.md); it has no scheduler or Fleet CLI runner.

@@ -9,8 +9,8 @@ inputs:
   - current_thread
 steps:
   - id: analyze-thread
-    kind: analysis
-    target: current-thread
+    kind: skill
+    target: thread-analysis
     purpose: Identify evidence-backed strengths, misses, corrections, and next-round recommendations.
     readOnly: true
   - id: write-report
@@ -35,4 +35,4 @@ stopCondition: Stop after the report is saved, or record a concrete blocker.
 
 # Thread analysis
 
-Use the current conversation as the input. Run this workflow through [thread-analysis](../.agents/skills/thread-analysis/SKILL.md) and follow its linked report contract.
+Use the current conversation as the input. Run this workflow manually through [thread-analysis](../skills/thread-analysis/SKILL.md) and follow its linked report contract. No Fleet CLI runner is available.

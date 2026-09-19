@@ -6,17 +6,16 @@ disable-model-invocation: true
 
 # Thread Analysis
 
-Use this user-invoked skill after [loop-me](../loop-me/SKILL.md) has produced an approved workflow with an executable handoff. It coordinates one manual run; the workflow file is the source of truth for its steps, capabilities, proof, failure policy, and stop condition.
+Use this user-invoked skill for one supported manual, read-only workflow run. The workflow file is the source of truth for its steps, capabilities, proof, failure policy, and stop condition. There is no Fleet CLI runner in this checkout; do not promise validation, execution, scheduling, or run recording through one.
 
 ## Run one workflow
 
-1. Read exactly one file under `workflows/` and validate it with `pnpm --filter @fleet/fleet-cli exec node src/index.js validate <absolute-workflow.md> --root <repo>`. The V1 runner accepts manual triggers only.
-2. Start the run with `pnpm --filter @fleet/fleet-cli exec node src/index.js run <absolute-workflow.md> --root <repo>`. Show the authority boundary before any action and use only the named skills/capabilities.
-3. Execute one step at a time. Record each tool/action, evidence pointer, and available cost with the CLI; use the workflow's checkpoint before any externally visible or destructive action.
-4. Run the workflow's independent check. Follow its failure policy, allow at most its configured retry count, and stop with a concrete reason when proof is missing.
-5. Finish only when the stop condition and proof hold. Return the Markdown report path under `.analy/`; leave the run blocked when they do not.
+1. Read exactly one file under `workflows/` and confirm its trigger is manual and every named skill exists locally.
+2. State the workflow's authority boundary, then perform only its read-only analysis steps with the named skill.
+3. Record evidence pointers in the local report without copying raw logs, private prompts, or secrets.
+4. Apply the workflow's proof and stop condition. Return the Markdown report path under `.analy/`, or report the concrete blocker.
 
-The runner is manual-only. It does not schedule work, create a daemon, auto-fix recommendations, or perform an external mutation without the workflow's human checkpoint.
+This manual path does not schedule work, create a daemon, auto-fix recommendations, or perform external mutations.
 
 ## Thread analysis mode
 

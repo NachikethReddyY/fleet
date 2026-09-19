@@ -1,6 +1,6 @@
 ---
 name: postplan-read
-description: `Use when a user supplies a postplan.dev URL to read, fetch, or open.`
+description: Use when a user supplies a postplan.dev URL to read, fetch, or open.
 ---
 
 # postplan-read
