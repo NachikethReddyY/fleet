@@ -158,3 +158,14 @@
 - [x] Add manual, local-only episode measurement schema and validated reporting.
 - [x] Record dataset pilot and credential migration boundaries without altering other projects or secrets.
 - [x] Run focused suites and real health checks; produce a package-by-package implementation report.
+
+# Optimize canonical global guidance — 2026-09-19
+
+- [x] Consolidate repetition and shorten wording while retaining all behavior and the canonical symlink source.
+- [x] Review preservation of authority, completion, learning, tool contracts, design and delegation safeguards.
+- [x] Verify instruction delivery, symlink health and measured size reduction; record limits.
+
+# Restore explicit global guidance sections — 2026-09-19
+
+- [x] Restore user-requested working-style, audit/evaluation, prompt, execution, preferences and delegation sections against the GitHub reference.
+- [x] Verify content coverage, canonical instruction delivery, and updated token count.
