@@ -86,4 +86,6 @@ Always read [experience-principles.md](references/experience-principles.md). The
 - **Component composition, custom controls, empty states, separators, or decoration:** [component-composition-and-states.md](references/component-composition-and-states.md)
 - **Icon need, metaphor, family, optical fit, labels, states, or mirroring:** [icons.md](references/icons.md)
 - **Any styled interface or visual review:** [designrules.md](references/designrules.md); run its restraint audit.
+- **Familiarity vs. novelty balance, mental models, chunking, or decision justification:** [visitor-psychology.md](references/visitor-psychology.md)
+- **App polish, perceived quality, transitions, delight, or a multi-state flow review:** [premium-app-experience.md](references/premium-app-experience.md)
 - **Creating or reviewing `DESIGN.html`:** [design-html.md](references/design-html.md)

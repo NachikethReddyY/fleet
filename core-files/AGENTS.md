@@ -26,7 +26,14 @@ I often ask the model to test, inspect, verify, compare, or prove something. The
 
 For impl, mutation, delegation, or external action:
 
-1. **Contract** — state one line: `Outcome: ... | Allowed changes: ... | Protected behavior: ... | Proof: ... | Stop when: ...`. Within higher-priority constraints, the explicit request controls scope. Preserve narrower scope when a standing process would broaden it; report skipped steps that weaken completion or proof.
+1. **Contract** — state exactly five Markdown lines, with each field name bolded:<br>
+   **Outcome:** ...<br>
+   **Allowed changes:** ...<br>
+   **Protected behavior:** ...<br>
+   **Proof:** ...<br>
+   **Stop when:** ...
+
+   Within higher-priority constraints, the explicit request controls scope. Preserve narrower scope when a standing process would broaden it; report skipped steps that weaken completion or proof.
 2. **Execute** — do the smallest complete work. Stop exploring once scope is clear; adjacent features need approval.
 3. **Validate** — prefer direct observation, then focused integration/automated checks, then static/type checks. Assertion is not proof. Mark unavailable checks unverified. For UI, test the requested behavior in the browser; a typecheck is insufficient.
 4. **Learn** — after a material correction, name the failed criterion and update the contract. Classify it as one-off, project, shared, or skill guidance; propose durable updates when reusable, but edit guidance only when authorized.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "CLI Proxy Reset"
+  short_description: "Clear CLIProxyAPI management IP lockouts"
+  default_prompt: "Use $cli-proxy-reset to clear the temporary CLIProxyAPI management IP ban."
