@@ -169,3 +169,9 @@
 
 - [x] Restore user-requested working-style, audit/evaluation, prompt, execution, preferences and delegation sections against the GitHub reference.
 - [x] Verify content coverage, canonical instruction delivery, and updated token count.
+
+# Optimize global AGENTS.md — 2026-09-25
+
+- [x] Shorten repeated guidance without changing authority, learning, proof, design, or writing rules.
+- [x] Remove the broken PR-loop reference and check the new text against the old behavior.
+- [x] Measure the reduction and verify instruction delivery, links, and diff integrity.
