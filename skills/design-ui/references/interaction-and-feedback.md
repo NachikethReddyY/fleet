@@ -56,3 +56,9 @@ Make generative behavior recognizable. Set accurate expectations and support can
 - Motion and haptics have a job and accessible alternatives.
 - Defaults and in-context options minimize configuration.
 - Generative behavior preserves disclosure, control, correction, privacy, and failure recovery.
+
+## Copy at the point of action
+
+Use the same word for the same object and action across labels, instructions, and confirmation. For multi-screen flows, keep a short vocabulary list when terminology might drift. Cut repeated explanations and claims that a task is "easy" or "quick". Error copy should name the problem and a useful next step; playful interjections can trivialize a real loss or failure. When a prerequisite matters, explain the benefit before the requested action.
+
+Source: [Apple, Make a big impact with small writing changes](https://www.youtube.com/watch?v=iaafpzDJHS8), 02:40–03:07, 05:00–05:13, 07:52–08:02, and 14:04–14:16.

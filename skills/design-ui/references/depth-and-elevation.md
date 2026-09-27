@@ -10,6 +10,16 @@ A flat system can express the same structure with surface values, borders, solid
 
 Use blur, translucency, and material effects only when they clarify layer or context. Content contrast must remain stable over every permitted background; provide a more opaque fallback when it does not.
 
+## Materials and nested shapes
+
+On Apple platforms, prefer system controls that supply material behavior and accessibility adaptation. Liquid Glass belongs primarily to the navigation and control layer above content, not repeated behind content cards. Use standard materials or ordinary fills within content. On the web, a blur approximation is an adaptation, not native Liquid Glass.
+
+Inspect materials over bright, dark, and busy content, with reduced transparency, increased contrast, and reduced motion where supported. Keep controls legible without animation or translucency. Reserve prominent tint for meaningful priority rather than coloring every control.
+
+For nearby nested rounded shapes, make inner and outer curves coherent with their inset. Prefer native concentric shapes when available; for ordinary web rounded rectangles, an inner radius near the outer radius minus the inset is a starting geometry, then inspect the actual result. This does not justify adding nested containers.
+
+Sources: [Apple materials](https://developer.apple.com/design/human-interface-guidelines/materials) and [toolbars](https://developer.apple.com/design/human-interface-guidelines/toolbars), archived 2026-09-26; [Bitrig material walkthrough](https://www.youtube.com/watch?v=KyA2qjNRKkM), 00:20–04:25. The web geometry is an implementation adaptation.
+
 ## Bounded levels
 
 Define three to five named levels when needed: base, subtly raised controls or cards, menus or dragged items, and blocking surfaces. Map each to owned surfaces and actual stacking order.
@@ -38,5 +48,6 @@ Remove highlights, blur, nested shadows, or extra levels that do not clarify sur
 - Each named level owns specific surfaces and matches actual stacking order.
 - Shadow size, softness, and layers communicate distance consistently.
 - Interaction changes agree with the z-axis and remain clear with reduced motion.
+- Materials retain legibility across real backgrounds and supported accessibility settings.
 - Overlap stays readable, operable, and stable across viewports.
 - `DESIGN.md` and `DESIGN.html` define and demonstrate the same depth system.

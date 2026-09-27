@@ -92,7 +92,7 @@ h3 { font-size: clamp(16px, 2vw, 19px); font-weight: 600; color: var(--text); }
 - Default rhythm: section `48px`; element `16px`; grouped card padding `20px`.
 - Relationship spacing: heading to description `8–10px`; description to visual `14–16px`; visual to caption/evidence `8–10px`; section to section `40–48px`.
 - Use eyebrow/kicker labels only when they add context unavailable in heading.
-- Put the same visible full-width `1px solid #2a2a2a` rule above the first major section and between every adjacent section. Leave `48–56px` between each rule and the following heading. Verify the computed borders and inspect the rendered lines.
+- Put the same visible full-width `1px solid #2a2a2a` rule above the first major section and between every adjacent section. Leave `48–56px` between each rule and the following heading. Check the CSS rule in source; inspect rendered lines only when browser testing is explicitly requested.
 
 If labels need to shrink below minimum to fit one row, widen visual or wrap it. Never leave a narrow `880px` document floating inside a huge black canvas.
 
@@ -235,7 +235,7 @@ File, symbol, and skill references may use individual compact tokens when the sh
 
 ### References used
 
-Use an `<ol>` with visible `1.`, `2.`, `3.` markers and mark every source row `li.ref`. Keep rows and the outer wrapper visually unboxed. Give outside markers `22–28px` inline-start space, allow long URLs to wrap with `overflow-wrap: anywhere`, and inspect the longest citation on a narrow viewport so neither marker nor text looks clipped. Keep the heading small (`16–18px`) so it reads as supporting material, not another primary section.
+Use an `<ol>` with visible `1.`, `2.`, `3.` markers and mark every source row `li.ref`. Keep rows and the outer wrapper visually unboxed. Give outside markers `22–28px` inline-start space, allow long URLs to wrap with `overflow-wrap: anywhere`, and check the narrow-screen CSS for clipping. Inspect a narrow viewport only when browser testing is explicitly requested. Keep the heading small (`16–18px`) so it reads as supporting material, not another primary section.
 
 Keep each bibliography row and its complete citation unboxed. Within that row, style each inline repository file or path with the same typed reference token used elsewhere; use the same neutral grey surface, no outline, and readable vertical padding as body/callout references so the visual language stays synchronized without turning the full citation into a card. Keep multiple repository files as separate tokens rather than joining them inside one bubble. A source outside the repository is an ordinary inline link with a small external-link SVG. External links open in a new tab and use `rel="noopener noreferrer"`. Do not style publication titles, organisations, dates, or descriptive source labels as reference tokens.
 
@@ -260,7 +260,7 @@ Interactivity must remove reading friction. Good uses: reveal answer/detail, swi
 
 ## 10. Output check
 
-Before publishing, verify:
+Before publishing, check the items possible from the HTML and CSS source. Confirm local readability with `curl` as instructed in `SKILL.md`. Mark rendered appearance and interactions unverified unless the user explicitly requests browser testing or supplies a rendered result.
 
 1. Subject matches `<title>` and visible `<h1>`; computed H1 size never exceeds `43px`.
 2. Core message is clear without opening disclosures or reading code.

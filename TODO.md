@@ -170,8 +170,46 @@
 - [x] Restore user-requested working-style, audit/evaluation, prompt, execution, preferences and delegation sections against the GitHub reference.
 - [x] Verify content coverage, canonical instruction delivery, and updated token count.
 
+# T3 Nightly device discovery repair — 2026-09-25
+
+- [x] Identify and reproduce the command failing with exit code 127.
+- [x] Repair the local prerequisite while preserving device settings.
+- [x] Verify discovery and the device setup screen.
+
+# Pixel emulator setup — 2026-09-25
+
+- [x] Expose adb to T3 and install an ARM64 Android system image.
+- [x] Create a Pixel virtual device without replacing existing devices.
+- [x] Boot the device and verify adb and T3 discovery.
+
+# Pstack usage fit audit — 2026-09-25
+
+- [x] Collect local history from this MacBook only (scope corrected by user); record coverage and limitations.
+- [x] Retrieve pinned pstack skills and define ranking criteria before auditing.
+- [x] Delegate bounded usage audits to Sol and validate their evidence.
+- [x] Produce and verify a local ranked report covering every skill.
+
 # Optimize global AGENTS.md — 2026-09-25
 
 - [x] Shorten repeated guidance without changing authority, learning, proof, design, or writing rules.
 - [x] Remove the broken PR-loop reference and check the new text against the old behavior.
 - [x] Measure the reduction and verify instruction delivery, links, and diff integrity.
+
+# Matt Pocock skill audit and pstack additions — 2026-09-25
+
+- [x] Install and verify type-system-discipline, boundary-discipline, and tdd from pinned pstack.
+- [x] Identify and pin Matt Pocock catalog; compare local project copies.
+- [x] Score every catalog skill against retained usage and current installed guidance.
+- [x] Write and verify local report with evidence and limitations.
+
+# Design-ui rebuild — 2026-09-26
+
+- [x] Replace the design workflow and preserve useful reference material.
+- [x] Encode supplied navigation, typography, and engagement guidance with source limits.
+- [x] Verify skill structure, references, compatibility, and installed discovery.
+
+# Design-ui research integration — 2026-09-26
+
+- [x] Inspect research indexes and relevant HIG and transcript passages.
+- [x] Integrate source-backed guidance without depending on the local archive.
+- [x] Ignore .research and verify skill references, structure, and preserved defaults.
