@@ -1,0 +1,3 @@
+interface:
+  display_name: "Thread Analysis"
+  short_description: "Analyze threads and run approved workflows"

@@ -9,6 +9,7 @@ core_agents="$fleet_root/core-files/AGENTS.md"
 fleet_agents="$fleet_root/core-files/FLEET.md"
 core_claude="$fleet_root/core-files/CLAUDE.md"
 source_skills="$fleet_root/skills"
+canonical_source_skills=$(CDPATH= cd -- "$source_skills" && pwd -P)
 local_skills="$fleet_root/.agents/skills"
 healthy=0
 unhealthy=0
@@ -232,6 +233,86 @@ check_local_skill() {
   local_count=$((local_count + 1))
 }
 
+provider_root() {
+  case $1 in
+    codex) printf '%s' "$user_home/.codex/skills" ;;
+    claude) printf '%s' "$user_home/.claude/skills" ;;
+    gemini) printf '%s' "$user_home/.gemini/skills" ;;
+    opencode) printf '%s' "$user_home/.config/opencode/skills" ;;
+    copilot) printf '%s' "$user_home/.copilot/skills" ;;
+    pi) printf '%s' "$user_home/.pi/agent/skills" ;;
+    *) return 1 ;;
+  esac
+}
+
+skill_dirs_for_provider() {
+  provider=$1
+
+  for bucket in universal command-center all global shared; do
+    bucket_path="$source_skills/$bucket"
+    [ -d "$bucket_path" ] || continue
+    if [ -f "$bucket_path/SKILL.md" ]; then
+      printf '%s\n' "$bucket_path"
+    else
+      for child in "$bucket_path"/*; do
+        [ -d "$child" ] || continue
+        if [ -f "$child/SKILL.md" ]; then
+          printf '%s\n' "$child"
+        elif find "$child" -type f -name SKILL.md -print 2>/dev/null | grep -q .; then
+          find "$child" -type f -name SKILL.md -print | while IFS= read -r skill_md; do
+            [ -n "$skill_md" ] || continue
+            skill_path=$(dirname -- "$skill_md")
+            printf '%s\n' "$skill_path"
+          done
+        else
+          # Backward-compatible skill directory without SKILL.md.
+          printf '%s\n' "$child"
+        fi
+      done
+    fi
+  done
+
+  bucket_path="$source_skills/$provider"
+  if [ -d "$bucket_path" ]; then
+    if [ -f "$bucket_path/SKILL.md" ]; then
+      printf '%s\n' "$bucket_path"
+    else
+      for child in "$bucket_path"/*; do
+        [ -d "$child" ] || continue
+        if [ -f "$child/SKILL.md" ]; then
+          printf '%s\n' "$child"
+        elif find "$child" -type f -name SKILL.md -print 2>/dev/null | grep -q .; then
+          find "$child" -type f -name SKILL.md -print | while IFS= read -r skill_md; do
+            [ -n "$skill_md" ] || continue
+            skill_path=$(dirname -- "$skill_md")
+            printf '%s\n' "$skill_path"
+          done
+        else
+          printf '%s\n' "$child"
+        fi
+      done
+    fi
+  fi
+
+  for skill_path in "$source_skills"/*; do
+    [ -d "$skill_path" ] || continue
+    skill_name=$(basename -- "$skill_path")
+    case $skill_name in
+      universal|command-center|all|global|shared|claude|codex|opencode|gemini|copilot|pi) continue ;;
+    esac
+    printf '%s\n' "$skill_path"
+  done
+}
+
+is_source_parent() {
+  target_parent=$1
+  case $target_parent in
+    "$canonical_source_skills") return 0 ;;
+    "$canonical_source_skills"/*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
 if [ ! -f "$fleet_agents" ] || [ ! -f "$core_agents" ] || [ ! -f "$core_claude" ] || [ ! -d "$source_skills" ] || [ ! -d "$local_skills" ]; then
   echo "Fleet symlink sources are incomplete under $fleet_root" >&2
   exit 2
@@ -245,47 +326,62 @@ check_link "instruction" "$user_home/.config/opencode/AGENTS.md" "$core_agents"
 check_link "instruction" "$user_home/.pi/agent/AGENTS.md" "$core_agents"
 check_link "instruction" "$user_home/.pi/AGENTS.md" "$core_agents"
 
-for skills_root in \
-  "$user_home/.codex/skills" \
-  "$user_home/.claude/skills" \
-  "$user_home/.gemini/skills" \
-  "$user_home/.config/opencode/skills" \
-  "$user_home/.copilot/skills" \
-  "$user_home/.pi/agent/skills"
-do
+for provider in codex claude gemini opencode copilot pi; do
+  skills_root=$(provider_root "$provider")
+  mkdir -p "$skills_root"
+
   if [ -L "$skills_root" ]; then
     check_link "global-root" "$skills_root" "$source_skills"
     continue
   fi
 
-  # Only report links owned by Fleet; provider/plugin-managed skills are unrelated.
-  for candidate in "$skills_root"/*
-  do
+  expected_file=$(mktemp "${TMPDIR:-/tmp}/fleet-expected.XXXXXX")
+  names_file=$(mktemp "${TMPDIR:-/tmp}/fleet-names.XXXXXX")
+  skill_dirs_for_provider "$provider" > "$expected_file"
+  : > "$names_file"
+  while IFS= read -r expected_dir; do
+    [ -n "$expected_dir" ] || continue
+    basename -- "$expected_dir" >> "$names_file"
+  done < "$expected_file"
+
+  # Stale Fleet-managed links are reported, never silently pruned.
+  for candidate in "$skills_root"/*; do
     [ -L "$candidate" ] || continue
     raw_target=$(readlink "$candidate")
     case $raw_target in
       /*) linked_path=$raw_target ;;
       *) linked_path=$(dirname -- "$candidate")/$raw_target ;;
     esac
-    # Canonicalize the parent even when a removed skill leaves a dangling link.
-    if [ -d "$(dirname -- "$linked_path")" ]; then
-      target_parent=$(CDPATH= cd -- "$(dirname -- "$linked_path")" && pwd -P)
-      source_parent=$(CDPATH= cd -- "$source_skills" && pwd -P)
-      candidate_name=$(basename -- "$candidate")
-      if [ "$target_parent" = "$source_parent" ] &&
-        { [ ! -d "$linked_path" ] || [ ! -d "$source_skills/$candidate_name" ]; }; then
-        report "STALE" "global-skill" "$candidate" "$linked_path"
-        unhealthy=$((unhealthy + 1))
-      fi
+    if [ ! -d "$(dirname -- "$linked_path")" ]; then
+      continue
+    fi
+    target_parent=$(CDPATH= cd -- "$(dirname -- "$linked_path")" && pwd -P)
+    if ! is_source_parent "$target_parent"; then
+      continue
+    fi
+    candidate_name=$(basename -- "$candidate")
+    expected_name=0
+    if grep -Fxq -- "$candidate_name" "$names_file"; then
+      expected_name=1
+    fi
+    source_skill_present=0
+    if [ -d "$target_parent/$candidate_name" ]; then
+      source_skill_present=1
+    fi
+    if [ "$expected_name" -eq 0 ] || [ "$source_skill_present" -eq 0 ] || [ ! -e "$linked_path" ]; then
+      report "STALE" "global-skill" "$candidate" "$linked_path"
+      unhealthy=$((unhealthy + 1))
     fi
   done
 
-  for skill_path in "$source_skills"/*
-  do
-    [ -d "$skill_path" ] || continue
-    skill_name=$(basename -- "$skill_path")
-    check_link "global-skill" "$skills_root/$skill_name" "$skill_path"
-  done
+  while IFS= read -r expected_dir; do
+    [ -n "$expected_dir" ] || continue
+    [ -d "$expected_dir" ] || continue
+    skill_name=$(basename -- "$expected_dir")
+    check_link "global-skill" "$skills_root/$skill_name" "$expected_dir"
+  done < "$expected_file"
+
+  rm -f "$expected_file" "$names_file"
 done
 
 for skill_path in "$local_skills"/*

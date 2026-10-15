@@ -53,7 +53,9 @@ def check(root: Path) -> list[str]:
         for route in routes:
             if not re.search(rf"^\s*target:\s*{re.escape(route)}\s*$", text, re.MULTILINE):
                 errors.append(f"{workflow}: missing mandatory route declaration '{route}'")
-            if not (skills_root / route / "SKILL.md").is_file():
+            matches = list(skills_root.rglob("SKILL.md"))
+            skill_path = next((path for path in matches if path.parent.name == route), None)
+            if skill_path is None or not skill_path.is_file():
                 errors.append(f"{workflow}: mandatory skill route '{route}' is unavailable")
     return errors
 
