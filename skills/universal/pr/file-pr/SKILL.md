@@ -43,6 +43,16 @@ GOOD
 
 > My "new worktree" default was ignored when starting new threads on existing worktrees. Super unintuitive. Now your preferences always apply.
 
+## Diagrams for technical changes
+
+When the change is technical, add a Mermaid diagram to the PR description so a reviewer sees the shape before reading the diff. Technical means it changes control flow, a data or request path, a state machine, module boundaries, a schema or a pipeline. Skip it for typo, copy, dependency-bump and other changes with no structure to show.
+
+- Pick the diagram that fits: `flowchart` for flow and boundaries, `sequenceDiagram` for calls between services, `stateDiagram-v2` for state machines, `erDiagram` for schema changes.
+- Put it in a fenced block tagged `mermaid`. GitHub renders it in the description. Place it after the problem and solution paragraphs, under a short heading such as `How it works`.
+- Show only what this PR touches. Mark new or changed nodes, for example with a `classDef changed` style, and keep it under about 12 nodes.
+- If the change replaces behaviour, show before and after as two diagrams.
+- Check the syntax before you open the PR. A block that fails to parse shows as an error box in the description. Fix it or drop it; do not ship a broken diagram.
+
 Add a blurb to the end of a PR description or comment only when an agent authored that text or the underlying changes. Do not edit a human-authored PR merely because it lacks a model or harness signature.
 
 GOOD
